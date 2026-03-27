@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  name        String
+  uni         String
+  cluster     String
+  cutoff2024  Float
+  cutoff2023  Float
+  field       String
+  demand      String
+  salary      String?
+  salaryScore Int?
+  careers     String[]
+  alts        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([field])
+  @@index([uni])
+  @@index([cluster])
+  @@index([demand])
+}
+
+model University {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  type     String
+  location String
+  founded  Int
+  website  String?
+}
+
+model Session {
+  id          Int      @id @default(autoincrement())
+  sessionId   String   @unique @default(cuid())
+  firstName   String?
+  email       String?
+  gradesJson  Json?
+  resultsJson Json?
+  aiQueries   Int      @default(0)
+  createdAt   DateTime @default(now())
+  lastSeen    DateTime @updatedAt
+}
+
+model AiMessage {
+  id        Int      @id @default(autoincrement())
+  sessionId String
+  role      String
+  content   String
+  createdAt DateTime @default(now())
+  @@index([sessionId])
+}
+
+model PaidUser {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  paidAt    DateTime @default(now())
+  reference String   @unique
+  amount    Int
+  currency  String   @default("KES")
+  sessionId String?
+  @@index([email])
+}
+
+model PaymentAttempt {
+  id        Int      @id @default(autoincrement())
+  reference String   @unique
+  email     String
+  status    String
+  amount    Int
+  createdAt DateTime @default(now())
+  @@index([email])
+  @@index([reference])
+}
