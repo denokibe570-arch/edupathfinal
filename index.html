@@ -1682,8 +1682,155 @@ nav, .nav {
 .ccard:nth-child(n+9){ animation-delay: .40s; }
 </style>
 
+<style>
+/* LEGAL MODAL */
+#legalModal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:16px}
+.legal-card{background:var(--surface,#1c1230);border:1.5px solid var(--border2,#3d2d6b);border-radius:20px;max-width:560px;width:100%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(0,0,0,.85),0 0 0 1px rgba(124,58,237,.25)}
+.legal-header{position:relative;padding:20px 22px 14px;border-bottom:1px solid var(--border,#2e1f55);flex-shrink:0}
+.legal-logo{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.legal-logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#f97316);display:grid;place-items:center}
+.legal-brand{font-family:'Fraunces',serif;font-size:1rem;font-weight:900;color:var(--text,#f0ebff)}
+.legal-brand em{color:#f97316;font-style:normal}
+.legal-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:800;color:var(--text,#f0ebff);margin-bottom:3px}
+.legal-sub{font-size:.74rem;color:var(--muted,#7a6b9e)}
+.legal-tabs{display:flex;gap:4px;padding:8px 22px 0;border-bottom:1px solid var(--border,#2e1f55);flex-shrink:0}
+.legal-tab{padding:7px 14px;border-radius:8px 8px 0 0;font-size:.76rem;font-weight:600;cursor:pointer;border:1px solid transparent;border-bottom:none;color:var(--muted,#7a6b9e);background:transparent;transition:all .18s;position:relative;bottom:-1px;font-family:inherit}
+.legal-tab.active{background:var(--surface,#1c1230);border-color:var(--border2,#3d2d6b);color:var(--text,#f0ebff)}
+.legal-body{flex:1;overflow-y:auto;padding:18px 22px;scroll-behavior:smooth}
+.legal-body::-webkit-scrollbar{width:4px}.legal-body::-webkit-scrollbar-thumb{background:var(--border2,#3d2d6b);border-radius:2px}
+.legal-section{margin-bottom:16px}
+.legal-section h3{font-size:.82rem;font-weight:700;color:var(--text,#f0ebff);margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.legal-section h3::before{content:'';width:3px;height:12px;background:linear-gradient(180deg,#7c3aed,#f97316);border-radius:2px;flex-shrink:0}
+.legal-section p,.legal-section li{font-size:.75rem;color:var(--text2,#c4b8e8);line-height:1.7;margin-bottom:3px}
+.legal-section ul{padding-left:14px;margin:5px 0}.legal-section li{list-style:disc}
+.legal-footer{padding:14px 22px;border-top:1px solid var(--border,#2e1f55);flex-shrink:0}
+.legal-checks{margin-bottom:12px;display:flex;flex-direction:column;gap:7px}
+.legal-check-row{display:flex;align-items:flex-start;gap:8px;cursor:pointer}
+.legal-check-row input[type=checkbox]{width:15px;height:15px;margin-top:2px;accent-color:#7c3aed;flex-shrink:0;cursor:pointer}
+.legal-check-row span{font-size:.73rem;color:var(--text2,#c4b8e8);line-height:1.5}
+.legal-check-row a{color:#f97316;text-decoration:underline;cursor:pointer;font-weight:600}
+.legal-accept-btn{width:100%;padding:12px;border-radius:12px;background:linear-gradient(135deg,#5b21b6,#7c3aed 50%,#f97316);color:#fff;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .22s;box-shadow:0 6px 24px rgba(124,58,237,.45);display:flex;align-items:center;justify-content:center;gap:7px;font-family:inherit}
+.legal-accept-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(124,58,237,.6)}
+.legal-accept-btn:disabled{opacity:.38;cursor:not-allowed;transform:none}
+.legal-scroll-hint{font-size:.66rem;color:var(--muted,#7a6b9e);text-align:center;margin-bottom:8px;transition:opacity .3s}
+/* NAV improvements */
+.breadcrumb{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--muted,#7a6b9e);margin-bottom:10px;flex-wrap:wrap;padding:2px 0}
+.breadcrumb span{color:var(--text2,#c4b8e8);font-weight:600}
+.breadcrumb .bc-sep{opacity:.4}
+.breadcrumb .bc-link{cursor:pointer;color:var(--accent2,#5b9bff);text-decoration:underline}.breadcrumb .bc-link:hover{color:var(--PL,#a855f7)}
+.grade-alert{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:var(--surface,#1c1230);border:1.5px solid rgba(249,115,22,.6);border-radius:10px;padding:11px 20px;font-size:.8rem;color:var(--text,#f0ebff);z-index:1500;box-shadow:0 12px 40px rgba(0,0,0,.6);animation:slideDown .3s cubic-bezier(.34,1.2,.64,1);max-width:88vw;text-align:center}
+@keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-16px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+/* Step bar progress */
+.step-bar{position:relative}.step-bar::after{content:'';position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#7c3aed,#f97316);transition:width .4s cubic-bezier(.34,1.2,.64,1);border-radius:0 2px 0 0}
+.step-bar[data-step="1"]::after{width:33.3%}.step-bar[data-step="2"]::after{width:66.6%}.step-bar[data-step="3"]::after{width:100%}
+/* Voucher */
+.voucher-divider{display:flex;align-items:center;gap:9px;margin:10px 0;color:var(--muted,#7a6b9e);font-size:.7rem}
+.voucher-divider::before,.voucher-divider::after{content:'';flex:1;height:1px;background:var(--border2,#3d2d6b)}
+.voucher-toggle-btn{background:none;border:1.5px dashed var(--border2,#3d2d6b);color:var(--text2,#c4b8e8);padding:8px 16px;border-radius:var(--radius-sm,10px);font-family:inherit;font-size:.78rem;cursor:pointer;width:100%;transition:all .18s}
+.voucher-toggle-btn:hover{border-color:var(--accent2,#5b9bff);color:var(--accent2,#5b9bff)}
+#voucherForm{margin-top:9px;animation:fadeIn .2s ease}
+.voucher-input-row{display:flex;gap:6px;margin-bottom:4px}
+.voucher-input{flex:1;padding:8px 11px;border-radius:var(--radius-xs,7px);background:var(--surface2,#231740);border:1.5px solid var(--border2,#3d2d6b);color:var(--text,#f0ebff);font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.08em;transition:all .18s;outline:none;text-transform:uppercase}
+.voucher-input:focus{border-color:var(--accent2,#5b9bff);box-shadow:0 0 0 3px rgba(59,123,255,.15)}
+.voucher-input.voucher-error{border-color:var(--err,#f87171);animation:shake .3s ease}
+.voucher-input.voucher-success{border-color:var(--ok,#34d399)}
+.voucher-apply-btn{padding:8px 14px;border-radius:var(--radius-xs,7px);background:var(--surface2,#231740);border:1.5px solid var(--border2,#3d2d6b);color:var(--text2,#c4b8e8);font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap}
+.voucher-apply-btn:hover{border-color:var(--accent2,#5b9bff);color:var(--accent2,#5b9bff)}
+.voucher-hint{font-size:.64rem;color:var(--muted,#7a6b9e);text-align:center}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+</style>
+
+<style>
+@keyframes spin { 100% { transform: rotate(360deg); } }
+/* Access verification banner */
+.access-checking-banner {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+  background: var(--surface); border: 1.5px solid var(--border2);
+  border-radius: 10px; padding: 8px 18px; font-size: .76rem; color: var(--text2);
+  z-index: 900; box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  display: flex; align-items: center; gap: 8px;
+  animation: slideDown .3s cubic-bezier(.34,1.2,.64,1) both;
+}
+.access-checking-banner .spinner {
+  width: 14px; height: 14px; border: 2px solid var(--border2);
+  border-top-color: var(--PL); border-radius: 50%;
+  animation: spin .7s linear infinite; flex-shrink: 0;
+}
+/* Verified access badge (shown in nav) */
+.access-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: .65rem; font-weight: 700; padding: 3px 8px;
+  border-radius: 999px; background: rgba(52,211,153,.15);
+  border: 1px solid rgba(52,211,153,.3); color: var(--ok);
+  margin-left: 6px;
+}
+</style>
+
 </head>
 <body>
+<!-- LEGAL MODAL -->
+<div id="legalModal" style="display:none">
+  <div class="legal-card">
+    <div class="legal-header">
+      <div class="legal-logo">
+        <div class="legal-logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="legal-brand">EduPath <em>AI</em></div>
+      </div>
+      <div class="legal-title">Terms of Service &amp; Privacy Policy</div>
+      <div class="legal-sub">Please read and accept before using EduPath AI &mdash; Kenya&rsquo;s KCSE course matcher</div>
+      <button onclick="closeLegalModal()" style="position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:10px;border:none;background:rgba(255,255,255,.08);color:var(--text);font-size:1rem;cursor:pointer;">✕</button>
+    </div>
+    <div class="legal-tabs">
+      <button class="legal-tab active" onclick="switchLegalTab('terms',this)">&#128203; Terms of Service</button>
+      <button class="legal-tab" onclick="switchLegalTab('privacy',this)">&#128274; Privacy Policy</button>
+    </div>
+    <div class="legal-body" id="legalBody">
+      <div id="legalTerms">
+        <div class="legal-section"><h3>1. Acceptance of Terms</h3><p>By using EduPath AI you agree to these Terms. EduPath AI is a KCSE university course matching platform for Kenyan students. If you do not agree, do not use the service.</p></div>
+        <div class="legal-section"><h3>2. What We Provide</h3><ul><li>KCSE cluster point calculation from your grades</li><li>Course eligibility matching using KUCCPS 2024/25 official cut-off data</li><li>AI-powered guidance via the EduPath Advisor (Claude AI)</li><li>PDF report export (paid feature &mdash; KES 50 one-time)</li><li>Comparison of 303+ programmes across 26 Kenyan universities</li></ul></div>
+        <div class="legal-section"><h3>3. Data Accuracy</h3><p>Cut-off points are sourced from KUCCPS official 2024/25 documents. <strong>Always verify eligibility at students.kuccps.net before applying.</strong> EduPath AI is a guidance tool, not an official KUCCPS service. Data may change without notice.</p></div>
+        <div class="legal-section"><h3>4. Payment Terms</h3><ul><li>Full access costs <strong>KES 50 &mdash; one-time payment</strong></li><li>Payments processed securely via Paystack (M-Pesa &amp; card)</li><li>Access granted immediately upon Paystack confirmation</li><li>We never store card or M-Pesa credentials</li><li>Voucher codes grant equivalent access at no charge</li><li><strong>Refunds:</strong> Non-refundable once digital access is granted</li></ul></div>
+        <div class="legal-section"><h3>5. User Responsibilities</h3><ul><li>Enter your actual KCSE grades for accurate results</li><li>Do not share voucher codes publicly</li><li>Do not scrape or copy the course database</li><li>The AI Advisor gives guidance &mdash; seek official academic counselling for major decisions</li></ul></div>
+        <div class="legal-section"><h3>6. Intellectual Property</h3><p>All design, code and content is protected by copyright. KUCCPS cut-off data is publicly available government information reproduced for educational purposes.</p></div>
+        <div class="legal-section"><h3>7. Limitation of Liability</h3><p>EduPath AI is provided &ldquo;as is&rdquo;. We are not liable for admission decisions made based on our platform. We do not guarantee any specific outcome.</p></div>
+        <div class="legal-section"><h3>8. Governing Law</h3><p>These terms are governed by Kenyan law. Last updated: March 2026.</p></div>
+        <div class="legal-section"><h3>9. Contact</h3><p>WhatsApp: 0742 868 209 &nbsp;&bull;&nbsp; Mon&ndash;Sat 8AM&ndash;8PM EAT</p></div>
+      </div>
+      <div id="legalPrivacy" style="display:none">
+        <div class="legal-section"><h3>1. What We Collect</h3><ul><li><strong>Name</strong> &mdash; entered voluntarily, used only to personalise your session</li><li><strong>KCSE Grades</strong> &mdash; stored in your browser only; sent to our server only when you search</li><li><strong>Email address</strong> &mdash; collected only if you pay, used to record and restore access</li><li><strong>Session ID</strong> &mdash; anonymous identifier to track your session</li><li><strong>AI conversations</strong> &mdash; stored to improve the advisor, not linked to personal identity</li></ul></div>
+        <div class="legal-section"><h3>2. How We Use It</h3><ul><li>To calculate cluster scores and match you to courses</li><li>To verify payment and restore access on return visits</li><li>To improve the AI advisor from anonymised conversations</li><li><strong>We do NOT sell, rent, or share your data with third parties</strong></li></ul></div>
+        <div class="legal-section"><h3>3. Data Security</h3><ul><li>Grades stored in <strong>your browser&rsquo;s localStorage</strong> &mdash; not on our servers until you search</li><li>Payment handled by <strong>Paystack</strong> (PCI-DSS compliant) &mdash; we never see card numbers</li><li>Database uses <strong>Supabase PostgreSQL</strong> with encryption at rest</li><li>All connections use HTTPS/TLS</li></ul></div>
+        <div class="legal-section"><h3>4. Cookies &amp; Local Storage</h3><p>We use browser localStorage only to save your payment status, email, and session ID. No tracking cookies. No advertising cookies. No analytics.</p></div>
+        <div class="legal-section"><h3>5. Third-Party Services</h3><ul><li><strong>Paystack</strong> &mdash; payment processing</li><li><strong>Anthropic Claude AI</strong> &mdash; AI Advisor</li><li><strong>Google Fonts</strong> &mdash; typography</li><li><strong>Unsplash</strong> &mdash; campus imagery</li></ul></div>
+        <div class="legal-section"><h3>6. Your Rights</h3><p>You may request access to, deletion of, or portability of your data. Contact: WhatsApp 0742 868 209.</p></div>
+        <div class="legal-section"><h3>7. Age</h3><p>EduPath AI is intended for students aged 16+ (KCSE candidates). We do not knowingly collect data from children under 13.</p></div>
+        <div class="legal-section"><h3>8. Governing Law</h3><p>Governed by the laws of Kenya including the Data Protection Act 2019. Last updated: March 2026.</p></div>
+      </div>
+    </div>
+    <div class="legal-footer">
+      <div class="legal-scroll-hint" id="legalScrollHint">&#8595; Scroll to read all terms before accepting</div>
+      <div class="legal-checks">
+        <label class="legal-check-row">
+          <input type="checkbox" id="checkTerms" onchange="updateLegalBtn()"/>
+          <span>I have read and agree to the <a onclick="switchLegalTab('terms',null)">Terms of Service</a></span>
+        </label>
+        <label class="legal-check-row">
+          <input type="checkbox" id="checkPrivacy" onchange="updateLegalBtn()"/>
+          <span>I have read and agree to the <a onclick="switchLegalTab('privacy',null)">Privacy Policy</a></span>
+        </label>
+        <label class="legal-check-row">
+          <input type="checkbox" id="checkAge" onchange="updateLegalBtn()"/>
+          <span>I confirm I am 16 years of age or older</span>
+        </label>
+      </div>
+      <button class="legal-accept-btn" id="legalAcceptBtn" onclick="acceptLegal()" disabled>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Accept &amp; Continue to EduPath AI
+      </button>
+    </div>
+  </div>
+</div>
+
 
 <div class="bg-3d-grid"></div>
 <div class="orb-3d orb-1"></div>
@@ -2579,7 +2726,8 @@ td:first-child{color:var(--t1);font-weight:500}
 <!-- MAIN WIZARD -->
 <div class="wrap">
   <div class="step-bar">
-    <div class="s-tab active" id="tab1"><div class="s-num">1</div><span class="s-text">Enter Grades</span></div>
+    <div class="breadcrumb" id="mainBreadcrumb"></div>
+<div class="s-tab active" id="tab1"><div class="s-num">1</div><span class="s-text">Enter Grades</span></div>
     <div class="s-tab" id="tab2"><div class="s-num">2</div><span class="s-text">Cluster Points</span></div>
     <div class="s-tab" id="tab3"><div class="s-num">3</div><span class="s-text">My Courses</span></div>
   </div>
@@ -2665,6 +2813,7 @@ td:first-child{color:var(--t1);font-weight:500}
         </div>
         <div class="res-actions">
           <button class="btn btn-orange" onclick="exportPDF()" style="font-size:.78rem;padding:9px 15px;">⬇ PDF Report</button>
+          <button class="btn btn-primary" id="unlockAllBtn" onclick="openPaywall(allResults.length)" style="font-size:.78rem;padding:9px 13px;display:none;">🔓 Unlock All</button>
           <button class="btn btn-ghost" onclick="openShortlist()" style="font-size:.78rem;padding:9px 13px;">⭐ Shortlist</button>
           <button class="btn btn-ghost" onclick="goStep1()" style="font-size:.78rem;padding:9px 12px;">↺ Reset</button>
         </div>
@@ -2836,6 +2985,8 @@ td:first-child{color:var(--t1);font-weight:500}
           <span class="f-link" onclick="switchInfoTab(null,'scholarships')">Scholarships</span>
           <span class="f-link" onclick="switchInfoTab(null,'apply')">How to Apply</span>
           <span class="f-link" onclick="switchInfoTab(null,'faq')">FAQ</span>
+          <span class="f-link" onclick="openLegalModal('terms')">Terms</span>
+          <span class="f-link" onclick="openLegalModal('privacy')">Privacy</span>
         </div>
       </div>
       <div class="footer-col">
@@ -3412,7 +3563,10 @@ var FIELD_CSS = {
 let studentName = '';
 let grades = {};
 var userEmail = localStorage.getItem('edupath_email') || null;
-var hasPaidAccess = localStorage.getItem('edupath_paid') === 'true';
+// SECURITY: hasPaidAccess is NEVER seeded from localStorage.
+// It is only set to true after a live database verification this session.
+var hasPaidAccess = false;
+var _accessVerifiedThisSession = false;  // true once backend confirmed
 var sessionId = localStorage.getItem('edupath_session') || null;
 var FREE_LIMIT = 3;
 var UNLOCK_AMOUNT = 5000;
@@ -3453,8 +3607,18 @@ document.addEventListener('DOMContentLoaded', function() {
   buildInterestButtons();
   setupWaTip();
   loadCoursesFromAPI().then(function() { runHeroCounters(); });
+  // Always verify access from backend — never trust localStorage alone
+  if (userEmail) {
+    showAccessCheckingBanner();
+    checkPaymentAccess().then(function(paid) {
+      hideAccessCheckingBanner();
+      if (paid) { showAccessBadge(); if (allResults.length > 0) { _doUnlock(); renderCards(filteredResults); } }
+    });
+  }
   if (userEmail) checkPaymentAccess();
-  setTimeout(function() { var ni = document.getElementById('nameInput'); if (ni) ni.focus(); }, 300);
+  showLegalIfNeeded();
+  var _bar = document.querySelector('.step-bar'); if (_bar) _bar.setAttribute('data-step','1');
+  setTimeout(function() { var ni = document.getElementById('nameInput'); if (ni) ni.focus(); }, 350);
 });
 
 // ══════════════════════════════════════════════════
@@ -3561,13 +3725,32 @@ function showPanels(...ids) {
   });
 }
 
-function goStep1() { setTabs(1); showPanels('step1'); }
+function updateBreadcrumb(step) {
+  const bc = document.getElementById('mainBreadcrumb');
+  if (!bc) return;
+  const labels = {
+    1: 'Step 1 • Enter your grades',
+    2: 'Step 2 • Review your cluster scores',
+    3: 'Step 3 • See your matched courses'
+  };
+  bc.textContent = labels[step] || '';
+}
+
+function showGradeAlert(message) {
+  if (typeof toast === 'function') {
+    toast(message, 'warn');
+  } else {
+    alert(message);
+  }
+}
+
+function goStep1() { setTabs(1); showPanels('step1'); updateBreadcrumb(1); }
 
 function goStep2() {
   const req = ['eng','kis','maths'];
   const miss = req.filter(r => !grades[r]);
   if (miss.length) {
-    alert('Please enter grades for: ' + miss.map(r => {
+    showGradeAlert('Please enter grades for: ' + miss.map(r => {
       const all = [...SUBJ.comp,...SUBJ.sci,...SUBJ.hum];
       const found = all.find(s => s.id === r);
       return found ? found.label : r;
@@ -3605,11 +3788,14 @@ function goStep2() {
     });
   }, 100);
 
+  updateBreadcrumb(2);
   setTabs(2); showPanels('step2');
 }
 
 async function findCourses() {
+  currentStep=3; var _b=document.querySelector('.step-bar'); if(_b)_b.setAttribute('data-step','3');
   setTabs(3); showPanels('step3L');
+  updateBreadcrumb(3);
   const steps = ['ls1','ls2','ls3','ls4','ls5'];
   for (let i = 0; i < steps.length; i++) {
     await new Promise(r => setTimeout(r, 420));
@@ -3655,13 +3841,19 @@ async function findCourses() {
     <div class="s-chip sl2" style="animation-delay:.15s">△ ${l} Competitive</div>`;
 
   showPanels('step3R');
-  if (!hasPaidAccess && userEmail) {
-    checkPaymentAccess().then(function() { renderCards(filteredResults); });
+  // Always verify from DB — never assume access from localStorage
+  if (userEmail && !_accessVerifiedThisSession) {
+    checkPaymentAccess().then(function(paid) {
+      renderCards(filteredResults);
+      if (!paid && allResults.length > FREE_LIMIT) {
+        setTimeout(function() { openPaywall(allResults.length); }, 1400);
+      }
+    });
   } else {
     renderCards(filteredResults);
-  }
-  if (!hasPaidAccess && allResults.length > FREE_LIMIT) {
-    setTimeout(function() { openPaywall(allResults.length); }, 1400);
+    if (!hasPaidAccess && allResults.length > FREE_LIMIT) {
+      setTimeout(function() { openPaywall(allResults.length); }, 1400);
+    }
   }
 }
 
@@ -3744,6 +3936,18 @@ function renderCards(results) {
         card.insertBefore(cta, card.firstChild);
       }
     });
+  }
+  refreshUnlockButton();
+}
+
+function refreshUnlockButton() {
+  var btn = document.getElementById('unlockAllBtn');
+  if (!btn) return;
+  if (!hasPaidAccess && allResults && allResults.length > FREE_LIMIT) {
+    btn.style.display = '';
+    btn.textContent = '🔓 Unlock All ' + allResults.length + ' courses';
+  } else {
+    btn.style.display = 'none';
   }
 }
 
@@ -4103,7 +4307,7 @@ function exportPDF() {
   ]);
 
   doc.autoTable({
-    startY: 116,
+    startY: 118,
     head: [['Programme', 'University', 'Field', 'My Pts', 'Cut-off', 'Margin', 'Probability', 'Demand']],
     body: rows,
     theme: 'grid',
@@ -4612,99 +4816,247 @@ function saveSession(u) { apiPost('/students/session', Object.assign({ sessionId
 function logAIQuery(role, content) { if (!sessionId) return; apiPost('/students/ai-query', { sessionId: sessionId, role: role, content: content }).catch(function() {}); }
 
 // PAYMENT
-function checkPaymentAccess() { if (!userEmail) return Promise.resolve(false); return apiGet('/payment/check-access?email=' + encodeURIComponent(userEmail)).then(function(d) { hasPaidAccess = !!(d && d.paid); if (hasPaidAccess) localStorage.setItem('edupath_paid', 'true'); return hasPaidAccess; }).catch(function() { return false; }); }
+function checkPaymentAccess() {
+  if (!userEmail) { hasPaidAccess = false; return Promise.resolve(false); }
+  return apiGet('/payment/check-access?email=' + encodeURIComponent(userEmail))
+    .then(function(d) {
+      if (d && d.paid) {
+        hasPaidAccess = true;
+        _accessVerifiedThisSession = true;
+        localStorage.setItem('edupath_paid_hint', '1'); // non-security hint only
+        return true;
+      } else {
+        // DB says not paid — clear any stale localStorage flag
+        hasPaidAccess = false;
+        _accessVerifiedThisSession = false;
+        localStorage.removeItem('edupath_paid');
+        localStorage.removeItem('edupath_paid_hint');
+        return false;
+      }
+    })
+    .catch(function(err) {
+      // API unreachable — deny access (fail closed, not open)
+      hasPaidAccess = false;
+      console.warn('Access check failed (API unreachable):', err && err.message);
+      return false;
+    });
+}
 
 function payNow() {
-  var email = userEmail || prompt('Enter your email to unlock full access:');
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { if (typeof toast === 'function') toast('Please enter a valid email address.', 'warn'); return; }
-  userEmail = email.toLowerCase().trim();
-  localStorage.setItem('edupath_email', userEmail);
-  if (hasPaidAccess) { closePaywall(); if (typeof toast === 'function') toast('You already have full access!', 'ok'); return; }
-  if (typeof PaystackPop === 'undefined') { if (typeof toast === 'function') toast('Payment loading, try again in a moment.', 'warn'); return; }
+  if (!userEmail) {
+    openEmailModal(function(collectedEmail) {
+      userEmail = collectedEmail;
+      localStorage.setItem('edupath_email', collectedEmail);
+      _launchPaystack(collectedEmail);
+    });
+    return;
+  }
+  // Already have email — first check if they already paid (different device)
+  checkPaymentAccess().then(function(alreadyPaid) {
+    if (alreadyPaid) {
+      closePaywall();
+      _doUnlock();
+      if (typeof toast === 'function') toast('Access restored for ' + userEmail, 'ok');
+      return;
+    }
+    _launchPaystack(userEmail);
+  });
+}
+
+function _launchPaystack(email) {
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (typeof toast === 'function') toast('Please enter a valid email address.', 'warn');
+    return;
+  }
+  if (typeof PaystackPop === 'undefined') {
+    if (typeof toast === 'function') toast('Payment is loading. Please try again in a moment.', 'warn');
+    return;
+  }
   var handler = PaystackPop.setup({
-    key: PAYSTACK_PK, email: userEmail, amount: UNLOCK_AMOUNT, currency: 'KES',
-    ref: 'EDUPATH_' + Date.now() + '_' + Math.random().toString(36).slice(2,8).toUpperCase(),
-    label: 'EduPath AI Full Access',
-    onClose: function() { if (typeof toast === 'function') toast('Payment closed. Pay KES 50 to unlock all results.', 'warn'); },
-    callback: function(response) { verifyPayment(response.reference, userEmail); },
+    key:      PAYSTACK_PK,
+    email:    email,
+    amount:   UNLOCK_AMOUNT,
+    currency: 'KES',
+    ref:      'EDUPATH_' + Date.now() + '_' + Math.random().toString(36).slice(2,8).toUpperCase(),
+    label:    'EduPath AI Full Access',
+    onClose:  function() {
+      if (typeof toast === 'function') toast('Payment closed. Pay KES 50 to unlock all results.', 'warn');
+    },
+    callback: function(response) {
+      verifyPayment(response.reference, email);
+    },
   });
   handler.openIframe();
 }
 
-function verifyPayment(reference, email) {
-  // Paystack already confirmed payment on their end before calling callback.
-  // Grant access immediately, then record in our backend in the background.
-  hasPaidAccess = true;
-  localStorage.setItem('edupath_paid', 'true');
-  localStorage.setItem('edupath_email', email);
-  localStorage.setItem('edupath_ref', reference);
 
-  closePaywall();
-  if (typeof toast === 'function') toast('Payment confirmed! All ' + (allResults.length || 'your') + ' courses are now unlocked!', 'ok');
+function verifyPayment(reference, email) {
+  var payBtn = document.getElementById('paywallPayBtn');
+  var retries = 0;
+  var maxRetries = 3;
+
+  if (payBtn) { payBtn.disabled = true; payBtn.innerHTML = '<span style="display:inline-block;animation:spin .7s linear infinite">&#8635;</span>&nbsp;Verifying payment...'; }
+  if (typeof toast === 'function') toast('Verifying payment with Paystack...', 'info');
+
+  function attempt() {
+    return apiPost('/payment/verify', { reference: reference, email: email, sessionId: sessionId || null })
+      .then(function(data) {
+        if (data && data.success) {
+          // Backend confirmed — NOW grant access
+          hasPaidAccess = true;
+          _accessVerifiedThisSession = true;
+          localStorage.setItem('edupath_paid_hint', '1');
+          localStorage.setItem('edupath_email', email);
+          localStorage.setItem('edupath_ref', reference);
+
+          if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = '&#10003; Verified!'; payBtn.style.background = 'linear-gradient(135deg,#10b981,#34d399)'; }
+          closePaywall();
+          showAccessBadge();
+          if (typeof toast === 'function') toast('Payment verified! All ' + (allResults.length||'your') + ' courses unlocked!', 'ok');
+          _doUnlock();
+        } else {
+          // Backend responded but payment not successful (e.g. Paystack says failed)
+          var msg = (data && data.error) ? data.error : 'Payment could not be verified.';
+          if (typeof toast === 'function') toast(msg, 'err');
+          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Try Again'; payBtn.style.background = ''; }
+        }
+      })
+      .catch(function(err) {
+        retries++;
+        console.warn('Verify attempt', retries, 'failed:', err && err.message);
+        if (retries < maxRetries) {
+          // Exponential back-off: 1s, 2s, 4s
+          setTimeout(attempt, Math.pow(2, retries - 1) * 1000);
+          if (typeof toast === 'function') toast('Retrying verification... (' + retries + '/' + maxRetries + ')', 'info');
+        } else {
+          // All retries exhausted — do NOT grant access; show support message
+          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Verification Failed — Contact Support'; payBtn.style.background = ''; }
+          if (typeof toast === 'function') toast(
+            'Could not verify payment after ' + maxRetries + ' attempts. ' +
+            'Send your payment reference (' + reference.slice(0,20) + '...) to WhatsApp 0742 868 209.',
+            'err'
+          );
+        }
+      });
+  }
+
+  attempt();
+}
+
+function _doUnlock() {
+  // Remove blur from all cards — only called after backend verification
   document.querySelectorAll('.paywall-blur').forEach(function(c) { c.classList.remove('paywall-blur'); });
   document.querySelectorAll('.unlock-cta').forEach(function(c) { c.remove(); });
   renderCards(filteredResults);
-
-  // Record in backend silently (fire-and-forget)
-  apiPost('/payment/verify', { reference: reference, email: email, sessionId: sessionId || null })
-    .then(function(data) {
-      if (data && data.success) {
-        console.log('Payment recorded:', reference);
-      } else {
-        console.warn('Backend record note:', data && data.error);
-      }
-    }).catch(function(e) {
-      // Backend unavailable but payment already confirmed by Paystack — access still granted
-      console.warn('Backend record pending:', e.message || e);
-    });
+  refreshUnlockButton();
 }
 
-function openPaywall(totalCount) {
-  var el = document.getElementById('paywallModal'); if (!el) return;
-  var lc = document.getElementById('paywallLockedCount'); if (lc) lc.textContent = Math.max(0, totalCount - FREE_LIMIT);
-  var tc = document.getElementById('paywallTotalCount'); if (tc) tc.textContent = totalCount;
-  el.classList.add('open'); document.body.style.overflow = 'hidden';
+
+
+
+// ── EMAIL GATE MODAL ──
+var _emailModalCallback = null;
+
+function openEmailModal(callback) {
+  _emailModalCallback = callback;
+  var modal = document.getElementById('emailGateModal');
+  var input = document.getElementById('emailGateInput');
+  var err   = document.getElementById('emailGateErr');
+  var btn   = document.getElementById('emailGateBtn');
+  if (!modal) return;
+  if (err)   err.style.display = 'none';
+  if (input) { input.value = userEmail || ''; }
+  if (btn)   btn.disabled = !input || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() { if (input) input.focus(); }, 120);
 }
-function closePaywall() { var el = document.getElementById('paywallModal'); if (el) el.classList.remove('open'); document.body.style.overflow = ''; }
+
+function closeEmailModal() {
+  var modal = document.getElementById('emailGateModal');
+  if (modal) { modal.style.display = 'none'; }
+  document.body.style.overflow = '';
+  _emailModalCallback = null;
+}
+
+function submitEmailGate() {
+  var input = document.getElementById('emailGateInput');
+  var err   = document.getElementById('emailGateErr');
+  var val   = input ? input.value.trim().toLowerCase() : '';
+  if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+    if (err) err.style.display = 'block';
+    if (input) input.focus();
+    return;
+  }
+  var cb = _emailModalCallback;
+  closeEmailModal();
+  if (cb) cb(val);
+}
+
+// ── ACCESS VERIFICATION BANNER ──
+function showAccessCheckingBanner() {
+  var existing = document.getElementById('accessCheckBanner');
+  if (existing) return;
+  var div = document.createElement('div');
+  div.id = 'accessCheckBanner';
+  div.className = 'access-checking-banner';
+  div.innerHTML = '<div class="spinner"></div> Verifying your access...';
+  document.body.appendChild(div);
+}
+
+function hideAccessCheckingBanner() {
+  var div = document.getElementById('accessCheckBanner');
+  if (div) { div.style.opacity = '0'; div.style.transition = 'opacity .3s'; setTimeout(function() { if (div.parentNode) div.remove(); }, 320); }
+}
+
+// ── SHOW VERIFIED BADGE IN NAV ──
+function showAccessBadge() {
+  var greeting = document.getElementById('navGreeting');
+  if (!greeting || document.getElementById('accessNavBadge')) return;
+  var badge = document.createElement('span');
+  badge.id = 'accessNavBadge';
+  badge.className = 'access-badge';
+  badge.innerHTML = '&#10003; Access Verified';
+  greeting.appendChild(badge);
+}
+
 
 // VOUCHER CODE SYSTEM
 var VALID_VOUCHERS = {'JOSH1959':true,'EDU1959':true};
-var usedVouchers = JSON.parse(localStorage.getItem('edupath_used_vouchers') || '[]');
 
 function applyVoucher() {
   var input = document.getElementById('voucherInput');
   if (!input) return;
   var vcode = input.value.trim().toUpperCase();
-  if (!vcode) { if (typeof toast === 'function') toast('Enter a voucher code first.', 'warn'); return; }
+  if (!vcode) { if(typeof toast==='function') toast('Enter a voucher code first.','warn'); return; }
   if (!VALID_VOUCHERS[vcode]) {
     input.classList.add('voucher-error');
-    if (typeof toast === 'function') toast('Invalid voucher code. Check and try again.', 'err');
-    setTimeout(function() { input.classList.remove('voucher-error'); }, 1500);
+    if(typeof toast==='function') toast('Invalid voucher code. Check and try again.','err');
+    setTimeout(function(){ input.classList.remove('voucher-error'); },1500);
     return;
   }
   hasPaidAccess = true;
-  localStorage.setItem('edupath_paid', 'true');
-  localStorage.setItem('edupath_voucher', vcode);
+  _accessVerifiedThisSession = true;
+  localStorage.setItem('edupath_paid_hint','1');
+  localStorage.setItem('edupath_email', userEmail || 'voucher@edupath.ai');
   input.classList.add('voucher-success');
   var vBtn = document.getElementById('voucherApplyBtn');
-  if (vBtn) { vBtn.textContent = 'Applied!'; vBtn.style.background = 'linear-gradient(135deg,#10b981,#34d399)'; vBtn.style.color = '#fff'; }
-  setTimeout(function() {
+  if(vBtn){ vBtn.textContent='Applied!'; vBtn.style.background='linear-gradient(135deg,#10b981,#34d399)'; vBtn.style.color='#fff'; }
+  setTimeout(function(){
     closePaywall();
-    if (typeof toast === 'function') toast('Voucher ' + vcode + ' applied! Full access unlocked.', 'ok');
-    document.querySelectorAll('.paywall-blur').forEach(function(c) { c.classList.remove('paywall-blur'); });
-    document.querySelectorAll('.unlock-cta').forEach(function(c) { c.remove(); });
-    renderCards(filteredResults);
+    showAccessBadge();
+    if(typeof toast==='function') toast('Voucher '+vcode+' applied! Full access unlocked.','ok');
+    _doUnlock();
   }, 700);
 }
 
 function toggleVoucherForm() {
   var form = document.getElementById('voucherForm');
-  if (!form) return;
+  if(!form) return;
   var open = form.style.display !== 'none';
   form.style.display = open ? 'none' : 'block';
-  if (!open) { setTimeout(function() { var i = document.getElementById('voucherInput'); if(i) i.focus(); }, 80); }
+  if(!open){ setTimeout(function(){ var i=document.getElementById('voucherInput'); if(i) i.focus(); },80); }
 }
-
 
 function toggleTheme() {
   const html = document.documentElement;
@@ -4714,6 +5066,81 @@ function toggleTheme() {
   if (btn) btn.textContent = isDark ? '☀️' : '🌙';
 }
 
+function openPaywall(totalCount) {
+  var modal = document.getElementById('paywallModal');
+  if (!modal) return;
+  var totalEl = document.getElementById('paywallTotalCount');
+  var lockedEl = document.getElementById('paywallLockedCount');
+  var total = typeof totalCount === 'number' ? totalCount : (allResults.length || 0);
+  var locked = Math.max(0, total - FREE_LIMIT);
+  if (totalEl) totalEl.textContent = total;
+  if (lockedEl) lockedEl.textContent = locked;
+  var payBtn = document.getElementById('paywallPayBtn');
+  if (payBtn) {
+    payBtn.disabled = false;
+    payBtn.textContent = 'Pay KES 50 — Unlock All';
+    payBtn.style.background = '';
+  }
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePaywall() {
+  var modal = document.getElementById('paywallModal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openLegalModal(tab) {
+  var modal = document.getElementById('legalModal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  switchLegalTab(tab || 'terms', null);
+  updateLegalBtn();
+}
+
+function closeLegalModal() {
+  var modal = document.getElementById('legalModal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function showLegalIfNeeded() {
+  if (localStorage.getItem('edupath_legal_accepted') !== '1') {
+    openLegalModal('terms');
+  }
+}
+
+function switchLegalTab(tab, btn) {
+  var tabs = document.querySelectorAll('.legal-tab');
+  tabs.forEach(function(t) {
+    var isActive = false;
+    if (btn && t === btn) isActive = true;
+    if (!btn && t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + tab + "'")) isActive = true;
+    t.classList.toggle('active', isActive);
+  });
+  var terms = document.getElementById('legalTerms');
+  var privacy = document.getElementById('legalPrivacy');
+  if (terms) terms.style.display = tab === 'terms' ? '' : 'none';
+  if (privacy) privacy.style.display = tab === 'privacy' ? '' : 'none';
+}
+
+function updateLegalBtn() {
+  var terms = document.getElementById('checkTerms');
+  var privacy = document.getElementById('checkPrivacy');
+  var age = document.getElementById('checkAge');
+  var btn = document.getElementById('legalAcceptBtn');
+  if (!btn) return;
+  btn.disabled = !(terms && terms.checked && privacy && privacy.checked && age && age.checked);
+}
+
+function acceptLegal() {
+  localStorage.setItem('edupath_legal_accepted', '1');
+  closeLegalModal();
+}
 
 
 // Scroll progress bar
@@ -4761,5 +5188,30 @@ document.addEventListener('mouseleave', function() {
   });
 })();
 </script>
+
+<!-- EMAIL COLLECTION MODAL -->
+<div id="emailGateModal" style="display:none;position:fixed;inset:0;z-index:850;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--surface);border:1.5px solid var(--border2);border-radius:20px;max-width:380px;width:100%;padding:28px 24px;box-shadow:0 40px 100px rgba(0,0,0,.8),0 0 0 1px rgba(124,58,237,.2);animation:paywallEntry .4s cubic-bezier(.34,1.2,.64,1) both">
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-size:2rem;margin-bottom:8px">&#128231;</div>
+      <div style="font-family:'Fraunces',serif;font-size:1.15rem;font-weight:900;color:var(--text);margin-bottom:5px">Enter Your Email</div>
+      <div style="font-size:.78rem;color:var(--text2);line-height:1.6">Your email is used to <strong>tie payment to your account</strong>. You can restore access from any device with this email.</div>
+    </div>
+    <input id="emailGateInput" type="email" placeholder="yourname@email.com"
+      style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;background:var(--surface2);border:1.5px solid var(--border2);color:var(--text);font-family:inherit;font-size:.88rem;margin-bottom:8px;outline:none;transition:border-color .18s"
+      onkeydown="if(event.key==='Enter') submitEmailGate()"
+      oninput="var v=this.value; var btn=document.getElementById('emailGateBtn'); if(btn) btn.disabled=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);"/>
+    <div id="emailGateErr" style="font-size:.72rem;color:var(--err);margin-bottom:10px;display:none">Please enter a valid email address.</div>
+    <button id="emailGateBtn" onclick="submitEmailGate()" disabled
+      style="width:100%;padding:12px;border-radius:10px;background:linear-gradient(135deg,#5b21b6,#7c3aed 50%,#f97316);color:#fff;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .22s;font-family:inherit;box-shadow:0 6px 20px rgba(124,58,237,.4)">
+      Continue to Payment &#8594;
+    </button>
+    <div style="margin-top:10px;font-size:.68rem;color:var(--muted);text-align:center">
+      &#128274; We only use your email to verify payment. No spam, ever.
+    </div>
+    <button onclick="closeEmailModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;width:28px;height:28px;border-radius:6px;display:grid;place-items:center;transition:all .15s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='none'">&#10005;</button>
+  </div>
+</div>
+
 </body>
 </html>
