@@ -909,11 +909,6 @@ nav{position:sticky;top:0;z-index:300;height:68px;
 .voucher-apply-btn:hover{border-color:var(--accent2);color:var(--accent2)}
 .voucher-hint{font-size:.66rem;color:var(--muted);text-align:center}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-
-/* Persistent unlock FAB */
-#unlockFab{position:fixed;bottom:90px;right:24px;z-index:700;background:linear-gradient(135deg,var(--P,#7c3aed),var(--O,#f97316));color:#fff;border:none;border-radius:999px;padding:11px 20px 11px 16px;font-family:var(--ff,'DM Sans',sans-serif);font-size:.82rem;font-weight:700;cursor:pointer;box-shadow:0 8px 28px rgba(124,58,237,.55);display:none;align-items:center;gap:7px;transition:all .22s cubic-bezier(.34,1.4,.64,1);animation:fabPop .4s cubic-bezier(.34,1.56,.64,1) both}
-#unlockFab:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 14px 40px rgba(124,58,237,.65)}
-@keyframes fabPop{from{transform:scale(0) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
 </style>
 
 <style>
@@ -1687,154 +1682,8 @@ nav, .nav {
 .ccard:nth-child(n+9){ animation-delay: .40s; }
 </style>
 
-<style>
-/* LEGAL MODAL */
-#legalModal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:16px}
-.legal-card{background:var(--surface,#1c1230);border:1.5px solid var(--border2,#3d2d6b);border-radius:20px;max-width:560px;width:100%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(0,0,0,.85),0 0 0 1px rgba(124,58,237,.25)}
-.legal-header{padding:20px 22px 14px;border-bottom:1px solid var(--border,#2e1f55);flex-shrink:0}
-.legal-logo{display:flex;align-items:center;gap:9px;margin-bottom:8px}
-.legal-logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#f97316);display:grid;place-items:center}
-.legal-brand{font-family:'Fraunces',serif;font-size:1rem;font-weight:900;color:var(--text,#f0ebff)}
-.legal-brand em{color:#f97316;font-style:normal}
-.legal-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:800;color:var(--text,#f0ebff);margin-bottom:3px}
-.legal-sub{font-size:.74rem;color:var(--muted,#7a6b9e)}
-.legal-tabs{display:flex;gap:4px;padding:8px 22px 0;border-bottom:1px solid var(--border,#2e1f55);flex-shrink:0}
-.legal-tab{padding:7px 14px;border-radius:8px 8px 0 0;font-size:.76rem;font-weight:600;cursor:pointer;border:1px solid transparent;border-bottom:none;color:var(--muted,#7a6b9e);background:transparent;transition:all .18s;position:relative;bottom:-1px;font-family:inherit}
-.legal-tab.active{background:var(--surface,#1c1230);border-color:var(--border2,#3d2d6b);color:var(--text,#f0ebff)}
-.legal-body{flex:1;overflow-y:auto;padding:18px 22px;scroll-behavior:smooth}
-.legal-body::-webkit-scrollbar{width:4px}.legal-body::-webkit-scrollbar-thumb{background:var(--border2,#3d2d6b);border-radius:2px}
-.legal-section{margin-bottom:16px}
-.legal-section h3{font-size:.82rem;font-weight:700;color:var(--text,#f0ebff);margin-bottom:5px;display:flex;align-items:center;gap:7px}
-.legal-section h3::before{content:'';width:3px;height:12px;background:linear-gradient(180deg,#7c3aed,#f97316);border-radius:2px;flex-shrink:0}
-.legal-section p,.legal-section li{font-size:.75rem;color:var(--text2,#c4b8e8);line-height:1.7;margin-bottom:3px}
-.legal-section ul{padding-left:14px;margin:5px 0}.legal-section li{list-style:disc}
-.legal-footer{padding:14px 22px;border-top:1px solid var(--border,#2e1f55);flex-shrink:0}
-.legal-checks{margin-bottom:12px;display:flex;flex-direction:column;gap:7px}
-.legal-check-row{display:flex;align-items:flex-start;gap:8px;cursor:pointer}
-.legal-check-row input[type=checkbox]{width:15px;height:15px;margin-top:2px;accent-color:#7c3aed;flex-shrink:0;cursor:pointer}
-.legal-check-row span{font-size:.73rem;color:var(--text2,#c4b8e8);line-height:1.5}
-.legal-check-row a{color:#f97316;text-decoration:underline;cursor:pointer;font-weight:600}
-.legal-accept-btn{width:100%;padding:12px;border-radius:12px;background:linear-gradient(135deg,#5b21b6,#7c3aed 50%,#f97316);color:#fff;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .22s;box-shadow:0 6px 24px rgba(124,58,237,.45);display:flex;align-items:center;justify-content:center;gap:7px;font-family:inherit}
-.legal-accept-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(124,58,237,.6)}
-.legal-accept-btn:disabled{opacity:.38;cursor:not-allowed;transform:none}
-.legal-scroll-hint{font-size:.66rem;color:var(--muted,#7a6b9e);text-align:center;margin-bottom:8px;transition:opacity .3s}
-/* NAV improvements */
-.breadcrumb{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--muted,#7a6b9e);margin-bottom:10px;flex-wrap:wrap;padding:2px 0}
-.breadcrumb span{color:var(--text2,#c4b8e8);font-weight:600}
-.breadcrumb .bc-sep{opacity:.4}
-.breadcrumb .bc-link{cursor:pointer;color:var(--accent2,#5b9bff);text-decoration:underline}.breadcrumb .bc-link:hover{color:var(--PL,#a855f7)}
-.grade-alert{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:var(--surface,#1c1230);border:1.5px solid rgba(249,115,22,.6);border-radius:10px;padding:11px 20px;font-size:.8rem;color:var(--text,#f0ebff);z-index:1500;box-shadow:0 12px 40px rgba(0,0,0,.6);animation:slideDown .3s cubic-bezier(.34,1.2,.64,1);max-width:88vw;text-align:center}
-@keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-16px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
-/* Step bar progress */
-.step-bar{position:relative}.step-bar::after{content:'';position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#7c3aed,#f97316);transition:width .4s cubic-bezier(.34,1.2,.64,1);border-radius:0 2px 0 0}
-.step-bar[data-step="1"]::after{width:33.3%}.step-bar[data-step="2"]::after{width:66.6%}.step-bar[data-step="3"]::after{width:100%}
-/* Voucher */
-.voucher-divider{display:flex;align-items:center;gap:9px;margin:10px 0;color:var(--muted,#7a6b9e);font-size:.7rem}
-.voucher-divider::before,.voucher-divider::after{content:'';flex:1;height:1px;background:var(--border2,#3d2d6b)}
-.voucher-toggle-btn{background:none;border:1.5px dashed var(--border2,#3d2d6b);color:var(--text2,#c4b8e8);padding:8px 16px;border-radius:var(--radius-sm,10px);font-family:inherit;font-size:.78rem;cursor:pointer;width:100%;transition:all .18s}
-.voucher-toggle-btn:hover{border-color:var(--accent2,#5b9bff);color:var(--accent2,#5b9bff)}
-#voucherForm{margin-top:9px;animation:fadeIn .2s ease}
-.voucher-input-row{display:flex;gap:6px;margin-bottom:4px}
-.voucher-input{flex:1;padding:8px 11px;border-radius:var(--radius-xs,7px);background:var(--surface2,#231740);border:1.5px solid var(--border2,#3d2d6b);color:var(--text,#f0ebff);font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.08em;transition:all .18s;outline:none;text-transform:uppercase}
-.voucher-input:focus{border-color:var(--accent2,#5b9bff);box-shadow:0 0 0 3px rgba(59,123,255,.15)}
-.voucher-input.voucher-error{border-color:var(--err,#f87171);animation:shake .3s ease}
-.voucher-input.voucher-success{border-color:var(--ok,#34d399)}
-.voucher-apply-btn{padding:8px 14px;border-radius:var(--radius-xs,7px);background:var(--surface2,#231740);border:1.5px solid var(--border2,#3d2d6b);color:var(--text2,#c4b8e8);font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap}
-.voucher-apply-btn:hover{border-color:var(--accent2,#5b9bff);color:var(--accent2,#5b9bff)}
-.voucher-hint{font-size:.64rem;color:var(--muted,#7a6b9e);text-align:center}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-</style>
-
-<style>
-@keyframes spin { 100% { transform: rotate(360deg); } }
-/* Access verification banner */
-.access-checking-banner {
-  position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
-  background: var(--surface); border: 1.5px solid var(--border2);
-  border-radius: 10px; padding: 8px 18px; font-size: .76rem; color: var(--text2);
-  z-index: 900; box-shadow: 0 8px 30px rgba(0,0,0,.5);
-  display: flex; align-items: center; gap: 8px;
-  animation: slideDown .3s cubic-bezier(.34,1.2,.64,1) both;
-}
-.access-checking-banner .spinner {
-  width: 14px; height: 14px; border: 2px solid var(--border2);
-  border-top-color: var(--PL); border-radius: 50%;
-  animation: spin .7s linear infinite; flex-shrink: 0;
-}
-/* Verified access badge (shown in nav) */
-.access-badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: .65rem; font-weight: 700; padding: 3px 8px;
-  border-radius: 999px; background: rgba(52,211,153,.15);
-  border: 1px solid rgba(52,211,153,.3); color: var(--ok);
-  margin-left: 6px;
-}
-</style>
-
 </head>
 <body>
-<!-- LEGAL MODAL -->
-<div id="legalModal" style="display:none">
-  <div class="legal-card">
-    <div class="legal-header">
-      <div class="legal-logo">
-        <div class="legal-logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div class="legal-brand">EduPath <em>AI</em></div>
-      </div>
-      <div class="legal-title">Terms of Service &amp; Privacy Policy</div>
-      <div class="legal-sub">Please read and accept before using EduPath AI &mdash; Kenya&rsquo;s KCSE course matcher</div>
-    </div>
-    <div class="legal-tabs">
-      <button class="legal-tab active" onclick="switchLegalTab('terms',this)">&#128203; Terms of Service</button>
-      <button class="legal-tab" onclick="switchLegalTab('privacy',this)">&#128274; Privacy Policy</button>
-    </div>
-    <div class="legal-body" id="legalBody">
-      <div id="legalTerms">
-        <div class="legal-section"><h3>1. Acceptance of Terms</h3><p>By using EduPath AI you agree to these Terms. EduPath AI is a KCSE university course matching platform for Kenyan students. If you do not agree, do not use the service.</p></div>
-        <div class="legal-section"><h3>2. What We Provide</h3><ul><li>KCSE cluster point calculation from your grades</li><li>Course eligibility matching using KUCCPS 2024/25 official cut-off data</li><li>AI-powered guidance via the EduPath Advisor (Claude AI)</li><li>PDF report export (paid feature &mdash; KES 50 one-time)</li><li>Comparison of 303+ programmes across 26 Kenyan universities</li></ul></div>
-        <div class="legal-section"><h3>3. Data Accuracy</h3><p>Cut-off points are sourced from KUCCPS official 2024/25 documents. <strong>Always verify eligibility at students.kuccps.net before applying.</strong> EduPath AI is a guidance tool, not an official KUCCPS service. Data may change without notice.</p></div>
-        <div class="legal-section"><h3>4. Payment Terms</h3><ul><li>Full access costs <strong>KES 50 &mdash; one-time payment</strong></li><li>Payments processed securely via Paystack (M-Pesa &amp; card)</li><li>Access granted immediately upon Paystack confirmation</li><li>We never store card or M-Pesa credentials</li><li>Voucher codes grant equivalent access at no charge</li><li><strong>Refunds:</strong> Non-refundable once digital access is granted</li></ul></div>
-        <div class="legal-section"><h3>5. User Responsibilities</h3><ul><li>Enter your actual KCSE grades for accurate results</li><li>Do not share voucher codes publicly</li><li>Do not scrape or copy the course database</li><li>The AI Advisor gives guidance &mdash; seek official academic counselling for major decisions</li></ul></div>
-        <div class="legal-section"><h3>6. Intellectual Property</h3><p>All design, code and content is protected by copyright. KUCCPS cut-off data is publicly available government information reproduced for educational purposes.</p></div>
-        <div class="legal-section"><h3>7. Limitation of Liability</h3><p>EduPath AI is provided &ldquo;as is&rdquo;. We are not liable for admission decisions made based on our platform. We do not guarantee any specific outcome.</p></div>
-        <div class="legal-section"><h3>8. Governing Law</h3><p>These terms are governed by Kenyan law. Last updated: March 2026.</p></div>
-        <div class="legal-section"><h3>9. Contact</h3><p>WhatsApp: 0742 868 209 &nbsp;&bull;&nbsp; Mon&ndash;Sat 8AM&ndash;8PM EAT</p></div>
-      </div>
-      <div id="legalPrivacy" style="display:none">
-        <div class="legal-section"><h3>1. What We Collect</h3><ul><li><strong>Name</strong> &mdash; entered voluntarily, used only to personalise your session</li><li><strong>KCSE Grades</strong> &mdash; stored in your browser only; sent to our server only when you search</li><li><strong>Email address</strong> &mdash; collected only if you pay, used to record and restore access</li><li><strong>Session ID</strong> &mdash; anonymous identifier to track your session</li><li><strong>AI conversations</strong> &mdash; stored to improve the advisor, not linked to personal identity</li></ul></div>
-        <div class="legal-section"><h3>2. How We Use It</h3><ul><li>To calculate cluster scores and match you to courses</li><li>To verify payment and restore access on return visits</li><li>To improve the AI advisor from anonymised conversations</li><li><strong>We do NOT sell, rent, or share your data with third parties</strong></li></ul></div>
-        <div class="legal-section"><h3>3. Data Security</h3><ul><li>Grades stored in <strong>your browser&rsquo;s localStorage</strong> &mdash; not on our servers until you search</li><li>Payment handled by <strong>Paystack</strong> (PCI-DSS compliant) &mdash; we never see card numbers</li><li>Database uses <strong>Supabase PostgreSQL</strong> with encryption at rest</li><li>All connections use HTTPS/TLS</li></ul></div>
-        <div class="legal-section"><h3>4. Cookies &amp; Local Storage</h3><p>We use browser localStorage only to save your payment status, email, and session ID. No tracking cookies. No advertising cookies. No analytics.</p></div>
-        <div class="legal-section"><h3>5. Third-Party Services</h3><ul><li><strong>Paystack</strong> &mdash; payment processing</li><li><strong>Anthropic Claude AI</strong> &mdash; AI Advisor</li><li><strong>Google Fonts</strong> &mdash; typography</li><li><strong>Unsplash</strong> &mdash; campus imagery</li></ul></div>
-        <div class="legal-section"><h3>6. Your Rights</h3><p>You may request access to, deletion of, or portability of your data. Contact: WhatsApp 0742 868 209.</p></div>
-        <div class="legal-section"><h3>7. Age</h3><p>EduPath AI is intended for students aged 16+ (KCSE candidates). We do not knowingly collect data from children under 13.</p></div>
-        <div class="legal-section"><h3>8. Governing Law</h3><p>Governed by the laws of Kenya including the Data Protection Act 2019. Last updated: March 2026.</p></div>
-      </div>
-    </div>
-    <div class="legal-footer">
-      <div class="legal-scroll-hint" id="legalScrollHint">&#8595; Scroll to read all terms before accepting</div>
-      <div class="legal-checks">
-        <label class="legal-check-row">
-          <input type="checkbox" id="checkTerms" onchange="updateLegalBtn()"/>
-          <span>I have read and agree to the <a onclick="switchLegalTab('terms',null)">Terms of Service</a></span>
-        </label>
-        <label class="legal-check-row">
-          <input type="checkbox" id="checkPrivacy" onchange="updateLegalBtn()"/>
-          <span>I have read and agree to the <a onclick="switchLegalTab('privacy',null)">Privacy Policy</a></span>
-        </label>
-        <label class="legal-check-row">
-          <input type="checkbox" id="checkAge" onchange="updateLegalBtn()"/>
-          <span>I confirm I am 16 years of age or older</span>
-        </label>
-      </div>
-      <button class="legal-accept-btn" id="legalAcceptBtn" onclick="acceptLegal()" disabled>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Accept &amp; Continue to EduPath AI
-      </button>
-    </div>
-  </div>
-</div>
-
 
 <div class="bg-3d-grid"></div>
 <div class="orb-3d orb-1"></div>
@@ -2626,7 +2475,7 @@ td:first-child{color:var(--t1);font-weight:500}
 
 <!-- NAV -->
 <!-- ═══ NAME ENTRY WELCOME SCREEN ═══ -->
-<div id="nameScreen" style="display:none">
+<div id="nameScreen">
   <div class="name-card">
     <div class="name-logo">
       <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -2730,8 +2579,7 @@ td:first-child{color:var(--t1);font-weight:500}
 <!-- MAIN WIZARD -->
 <div class="wrap">
   <div class="step-bar">
-    <div class="breadcrumb" id="mainBreadcrumb"></div>
-<div class="s-tab active" id="tab1"><div class="s-num">1</div><span class="s-text">Enter Grades</span></div>
+    <div class="s-tab active" id="tab1"><div class="s-num">1</div><span class="s-text">Enter Grades</span></div>
     <div class="s-tab" id="tab2"><div class="s-num">2</div><span class="s-text">Cluster Points</span></div>
     <div class="s-tab" id="tab3"><div class="s-num">3</div><span class="s-text">My Courses</span></div>
   </div>
@@ -3093,16 +2941,7 @@ td:first-child{color:var(--t1);font-weight:500}
     <div class="paywall-skip" onclick="closePaywall()">Continue with 3 free courses only &rarr;</div>
   </div>
 </div>
-<script>function closePaywall() {
-  var el = document.getElementById('paywallModal');
-  if (el) el.classList.remove('open');
-  document.body.style.overflow = '';
-  // Show persistent unlock FAB if courses are still locked
-  if (!hasPaidAccess && allResults.length > FREE_LIMIT) {
-    var fab = document.getElementById('unlockFab');
-    if (fab) fab.style.display = 'flex';
-  }
-}
+<script>
 
 
 // ══════════════════════════════════════════════════
@@ -3573,89 +3412,11 @@ var FIELD_CSS = {
 let studentName = '';
 let grades = {};
 var userEmail = localStorage.getItem('edupath_email') || null;
-// SECURITY: hasPaidAccess is NEVER seeded from localStorage.
-// It is only set to true after a live database verification this session.
-var hasPaidAccess = false;
-var _accessVerifiedThisSession = false;  // true once backend confirmed
+var hasPaidAccess = localStorage.getItem('edupath_paid') === 'true';
 var sessionId = localStorage.getItem('edupath_session') || null;
 var FREE_LIMIT = 3;
 var UNLOCK_AMOUNT = 5000;
 var PAYSTACK_PK = 'pk_live_43529fa7c0ab0c1d83e4af24ee86bf82cf3169fa';
-
-// ══ LEGAL GATE — top-level functions ══════════════════════════
-var legalAccepted = localStorage.getItem('edupath_legal_v2') === 'true';
-
-function showLegalIfNeeded() {
-  var modal = document.getElementById('legalModal');
-  var ns    = document.getElementById('nameScreen');
-  if (!legalAccepted) {
-    if (modal) modal.style.display = 'flex';
-    if (ns)    ns.style.display    = 'none';
-  } else {
-    if (modal) modal.style.display = 'none';
-    if (ns)    ns.style.display    = 'flex';
-  }
-}
-
-function switchLegalTab(tab, btn) {
-  var t = document.getElementById('legalTerms');
-  var p = document.getElementById('legalPrivacy');
-  if (t) t.style.display = (tab === 'terms')   ? '' : 'none';
-  if (p) p.style.display = (tab === 'privacy') ? '' : 'none';
-  document.querySelectorAll('.legal-tab').forEach(function(b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  else document.querySelectorAll('.legal-tab').forEach(function(b) {
-    if ((tab==='terms' && b.textContent.includes('Terms')) ||
-        (tab==='privacy' && b.textContent.includes('Privacy'))) b.classList.add('active');
-  });
-  var body = document.getElementById('legalBody');
-  if (body) body.scrollTop = 0;
-}
-
-function updateLegalBtn() {
-  var t   = document.getElementById('checkTerms');
-  var p   = document.getElementById('checkPrivacy');
-  var a   = document.getElementById('checkAge');
-  var btn = document.getElementById('legalAcceptBtn');
-  var ok  = t && t.checked && p && p.checked && a && a.checked;
-  if (btn) btn.disabled = !ok;
-  var hint = document.getElementById('legalScrollHint');
-  if (hint && ok) hint.style.opacity = '0';
-}
-
-function acceptLegal() {
-  var t = document.getElementById('checkTerms');
-  var p = document.getElementById('checkPrivacy');
-  var a = document.getElementById('checkAge');
-  if (!t||!t.checked||!p||!p.checked||!a||!a.checked) return;
-  legalAccepted = true;
-  localStorage.setItem('edupath_legal_v2','true');
-  var modal = document.getElementById('legalModal');
-  if (modal) {
-    modal.style.transition = 'opacity .35s ease';
-    modal.style.opacity    = '0';
-    setTimeout(function() {
-      modal.style.display    = 'none';
-      modal.style.opacity    = '1';
-      modal.style.transition = '';
-      var ns = document.getElementById('nameScreen');
-      if (ns) {
-        ns.style.display    = 'flex';
-        ns.style.opacity    = '0';
-        ns.style.transform  = 'translateY(16px)';
-        ns.style.transition = 'opacity .4s ease, transform .4s cubic-bezier(.34,1.1,.64,1)';
-        setTimeout(function() {
-          ns.style.opacity   = '1';
-          ns.style.transform = 'translateY(0)';
-          setTimeout(function() { ns.style.transition = ''; }, 420);
-          var ni = document.getElementById('nameInput');
-          if (ni) ni.focus();
-        }, 30);
-      }
-    }, 360);
-  }
-}
-
 // ══════════════════════════════════════════════════
 // EDUPATH STATE
 // ══════════════════════════════════════════════════
@@ -3688,60 +3449,12 @@ let probMode = 'all';
 // INIT
 // ══════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function() {
-  // Warn user if opening via file:// instead of a proper server
-  if (IS_FILE_PROTOCOL) {
-    var banner = document.createElement('div');
-    banner.id = 'fileProtocolBanner';
-    banner.style.cssText = [
-      'position:fixed','top:0','left:0','right:0','z-index:9999',
-      'background:linear-gradient(135deg,#7c3aed,#f97316)',
-      'color:#fff','padding:10px 20px','font-size:.82rem',
-      'font-family:inherit','text-align:center','font-weight:600',
-      'box-shadow:0 4px 20px rgba(0,0,0,.4)','line-height:1.7'
-    ].join(';');
-    banner.innerHTML =
-      '&#9888;&#65039; <strong>EduPath AI is running in offline preview mode.</strong> ' +
-      'Payment, OTP and access verification are disabled.<br/>' +
-      'To enable full features: ' +
-      '<code style="background:rgba(0,0,0,.3);padding:1px 6px;border-radius:4px">' +
-      'cd edupath/frontend &amp;&amp; npx serve .</code> ' +
-      '&nbsp;then open &nbsp;' +
-      '<a href="http://localhost:3000" style="color:#fbbf24;font-weight:700">http://localhost:3000</a>' +
-      '&nbsp;&mdash;&nbsp;or deploy to Netlify for live access.' +
-      '<button onclick="this.parentNode.remove()" style="margin-left:16px;background:rgba(0,0,0,.3);' +
-      'border:none;color:#fff;cursor:pointer;border-radius:4px;padding:2px 8px;font-size:.8rem">&#10005;</button>';
-    document.body.prepend(banner);
-  }
   buildAllGrids();
   buildInterestButtons();
   setupWaTip();
   loadCoursesFromAPI().then(function() { runHeroCounters(); });
-
-  // Show legal or name screen (never both)
-  showLegalIfNeeded();
-
-  // Verify session token first, then fall back to email check
-  var _savedToken = localStorage.getItem('edupath_token');
-  if (_savedToken) {
-    showAccessCheckingBanner();
-    checkSession(_savedToken).then(function(ok) {
-      hideAccessCheckingBanner();
-      if (!ok && userEmail) {
-        checkPaymentAccess().then(function(paid) {
-          if (paid) showAccessBadge();
-        });
-      }
-    });
-  } else if (userEmail) {
-    showAccessCheckingBanner();
-    checkPaymentAccess().then(function(paid) {
-      hideAccessCheckingBanner();
-      if (paid) showAccessBadge();
-    });
-  }
-
-  var _bar = document.querySelector('.step-bar');
-  if (_bar) _bar.setAttribute('data-step', '1');
+  if (userEmail) checkPaymentAccess();
+  setTimeout(function() { var ni = document.getElementById('nameInput'); if (ni) ni.focus(); }, 300);
 });
 
 // ══════════════════════════════════════════════════
@@ -3854,7 +3567,7 @@ function goStep2() {
   const req = ['eng','kis','maths'];
   const miss = req.filter(r => !grades[r]);
   if (miss.length) {
-    showGradeAlert('Please enter grades for: ' + miss.map(r => {
+    alert('Please enter grades for: ' + miss.map(r => {
       const all = [...SUBJ.comp,...SUBJ.sci,...SUBJ.hum];
       const found = all.find(s => s.id === r);
       return found ? found.label : r;
@@ -3896,20 +3609,14 @@ function goStep2() {
 }
 
 async function findCourses() {
-  currentStep=3; var _b=document.querySelector('.step-bar'); if(_b)_b.setAttribute('data-step','3');
   setTabs(3); showPanels('step3L');
-  updateBreadcrumb(3);
   const steps = ['ls1','ls2','ls3','ls4','ls5'];
   for (let i = 0; i < steps.length; i++) {
-    await new Promise(r => setTimeout(r, 380));
-    var _prev = i > 0 ? document.getElementById(steps[i-1]) : null;
-    var _cur  = document.getElementById(steps[i]);
-    if (_prev) _prev.className = 'l-step done';
-    if (_cur)  _cur.className  = 'l-step active';
+    await new Promise(r => setTimeout(r, 420));
+    if (i > 0) document.getElementById(steps[i-1]).className = 'l-step done';
+    document.getElementById(steps[i]).className = 'l-step active';
   }
-  var _last = document.getElementById('ls5');
-  if (_last) _last.className = 'l-step done';
-  await new Promise(r => setTimeout(r, 280));
+  await new Promise(r => setTimeout(r, 350));
 
   allResults = DB
     .map(c => {
@@ -3947,34 +3654,14 @@ async function findCourses() {
     <div class="s-chip sm" style="animation-delay:.1s">◈ ${m} Moderate</div>
     <div class="s-chip sl2" style="animation-delay:.15s">△ ${l} Competitive</div>`;
 
-  // Force step3R visible (belt-and-suspenders — avoids navigateToStep conflicts)
-  var _s3L = document.getElementById('step3L');
-  var _s3R = document.getElementById('step3R');
-  if (_s3L) { _s3L.style.display = 'none'; }
-  if (_s3R) {
-    _s3R.style.display   = '';
-    _s3R.style.opacity   = '0';
-    _s3R.style.transform = 'translateY(14px)';
-    _s3R.style.transition= 'opacity .4s ease, transform .4s cubic-bezier(.34,1.1,.64,1)';
-    setTimeout(function() {
-      _s3R.style.opacity   = '1';
-      _s3R.style.transform = 'translateY(0)';
-      setTimeout(function() { _s3R.style.transition = ''; }, 420);
-    }, 30);
-  }
-  // Always verify from DB — never assume access from localStorage
-  if (userEmail && !_accessVerifiedThisSession) {
-    checkPaymentAccess().then(function(paid) {
-      renderCards(filteredResults);
-      if (!paid && allResults.length > FREE_LIMIT) {
-        setTimeout(function() { openPaywall(allResults.length); }, 1400);
-      }
-    });
+  showPanels('step3R');
+  if (!hasPaidAccess && userEmail) {
+    checkPaymentAccess().then(function() { renderCards(filteredResults); });
   } else {
     renderCards(filteredResults);
-    if (!hasPaidAccess && allResults.length > FREE_LIMIT) {
-      setTimeout(function() { openPaywall(allResults.length); }, 1400);
-    }
+  }
+  if (!hasPaidAccess && allResults.length > FREE_LIMIT) {
+    setTimeout(function() { openPaywall(allResults.length); }, 1400);
   }
 }
 
@@ -4416,7 +4103,7 @@ function exportPDF() {
   ]);
 
   doc.autoTable({
-    startY: 118,
+    startY: 116,
     head: [['Programme', 'University', 'Field', 'My Pts', 'Cut-off', 'Margin', 'Probability', 'Demand']],
     body: rows,
     theme: 'grid',
@@ -4917,34 +4604,7 @@ function initRipples() {
 
 
 // API
-// ── API BASE URL ──────────────────────────────────────────────────────────────
-// Detects environment: file:// (dev), localhost (local server), or Netlify
-var API_BASE = (function() {
-  var proto = window.location.protocol;
-  var host  = window.location.hostname;
-  if (proto === 'file:') {
-    // Opened directly from disk — API calls will fail with CORS errors.
-    // To run locally: use Live Server in VS Code, or run: npx serve frontend
-    // Then open http://localhost:3000 in your browser.
-    console.warn(
-      '%c EduPath AI — Please use a local server, not file:// %c\n' +
-      'Open this file via: npx serve frontend   (then visit http://localhost:3000)\n' +
-      'Or deploy to Netlify for full functionality.',
-      'background:#7c3aed;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold',
-      'color:#f97316'
-    );
-    // Return a dummy base — API calls will fail gracefully (embedded DB still works)
-    return 'http://localhost:3001/api';
-  }
-  if (host === 'localhost' || host === '127.0.0.1') {
-    return 'http://localhost:3001/api';
-  }
-  // Production (Netlify)
-  return '/.netlify/functions/api';
-})();
-
-// ── Is the app running in file:// mode? (no backend available) ────────────────
-var IS_FILE_PROTOCOL = window.location.protocol === 'file:';
+var API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:3001/api' : '/.netlify/functions/api';
 function apiGet(path) { return fetch(API_BASE + path).then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); }); }
 function apiPost(path, body) { return fetch(API_BASE + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(function(r) { return r.json(); }); }
 function loadCoursesFromAPI() { return apiGet('/courses').then(function(data) { if (data && data.courses && data.courses.length) { DB.length = 0; data.courses.forEach(function(c) { DB.push(c); }); var el = document.getElementById('statCourses'); if (el) el.textContent = DB.length + '+'; } }).catch(function(e) { console.warn('API unavailable:', e.message); }); }
@@ -4952,585 +4612,98 @@ function saveSession(u) { apiPost('/students/session', Object.assign({ sessionId
 function logAIQuery(role, content) { if (!sessionId) return; apiPost('/students/ai-query', { sessionId: sessionId, role: role, content: content }).catch(function() {}); }
 
 // PAYMENT
-function checkPaymentAccess() {
-  if (!userEmail) { hasPaidAccess = false; return Promise.resolve(false); }
-  if (IS_FILE_PROTOCOL) {
-    console.warn('checkPaymentAccess: skipped — file:// has no backend. Deploy to Netlify or use a local server.');
-    return Promise.resolve(false);
-  }
-  return apiGet('/payment/check-access?email=' + encodeURIComponent(userEmail))
-    .then(function(d) {
-      if (d && d.paid) {
-        hasPaidAccess = true;
-        _accessVerifiedThisSession = true;
-        localStorage.setItem('edupath_paid_hint', '1'); // non-security hint only
-        return true;
-      } else {
-        // DB says not paid — clear any stale localStorage flag
-        hasPaidAccess = false;
-        _accessVerifiedThisSession = false;
-        localStorage.removeItem('edupath_paid');
-        localStorage.removeItem('edupath_paid_hint');
-        return false;
-      }
-    })
-    .catch(function(err) {
-      // API unreachable — deny access (fail closed, not open)
-      hasPaidAccess = false;
-      console.warn('Access check failed (API unreachable):', err && err.message);
-      return false;
-    });
-}
+function checkPaymentAccess() { if (!userEmail) return Promise.resolve(false); return apiGet('/payment/check-access?email=' + encodeURIComponent(userEmail)).then(function(d) { hasPaidAccess = !!(d && d.paid); if (hasPaidAccess) localStorage.setItem('edupath_paid', 'true'); return hasPaidAccess; }).catch(function() { return false; }); }
 
-// payNow (OTP-routing version) defined below
-
-
-function _launchPaystack(email) {
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    if (typeof toast === 'function') toast('Please enter a valid email address.', 'warn');
-    return;
-  }
-  if (typeof PaystackPop === 'undefined') {
-    if (typeof toast === 'function') toast('Payment is loading. Please try again in a moment.', 'warn');
-    return;
-  }
+function payNow() {
+  var email = userEmail || prompt('Enter your email to unlock full access:');
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { if (typeof toast === 'function') toast('Please enter a valid email address.', 'warn'); return; }
+  userEmail = email.toLowerCase().trim();
+  localStorage.setItem('edupath_email', userEmail);
+  if (hasPaidAccess) { closePaywall(); if (typeof toast === 'function') toast('You already have full access!', 'ok'); return; }
+  if (typeof PaystackPop === 'undefined') { if (typeof toast === 'function') toast('Payment loading, try again in a moment.', 'warn'); return; }
   var handler = PaystackPop.setup({
-    key:      PAYSTACK_PK,
-    email:    email,
-    amount:   UNLOCK_AMOUNT,
-    currency: 'KES',
-    ref:      'EDUPATH_' + Date.now() + '_' + Math.random().toString(36).slice(2,8).toUpperCase(),
-    label:    'EduPath AI Full Access',
-    onClose:  function() {
-      if (typeof toast === 'function') toast('Payment closed. Pay KES 50 to unlock all results.', 'warn');
-    },
-    callback: function(response) {
-      verifyPayment(response.reference, email);
-    },
+    key: PAYSTACK_PK, email: userEmail, amount: UNLOCK_AMOUNT, currency: 'KES',
+    ref: 'EDUPATH_' + Date.now() + '_' + Math.random().toString(36).slice(2,8).toUpperCase(),
+    label: 'EduPath AI Full Access',
+    onClose: function() { if (typeof toast === 'function') toast('Payment closed. Pay KES 50 to unlock all results.', 'warn'); },
+    callback: function(response) { verifyPayment(response.reference, userEmail); },
   });
   handler.openIframe();
 }
 
+function verifyPayment(reference, email) {
+  // Paystack already confirmed payment on their end before calling callback.
+  // Grant access immediately, then record in our backend in the background.
+  hasPaidAccess = true;
+  localStorage.setItem('edupath_paid', 'true');
+  localStorage.setItem('edupath_email', email);
+  localStorage.setItem('edupath_ref', reference);
 
-// verifyPayment (OTP-aware version) defined below
-
-
-function _doUnlock() {
-  var fab = document.getElementById('unlockFab');
-  if (fab) fab.style.display = 'none';
+  closePaywall();
+  if (typeof toast === 'function') toast('Payment confirmed! All ' + (allResults.length || 'your') + ' courses are now unlocked!', 'ok');
   document.querySelectorAll('.paywall-blur').forEach(function(c) { c.classList.remove('paywall-blur'); });
   document.querySelectorAll('.unlock-cta').forEach(function(c) { c.remove(); });
   renderCards(filteredResults);
+
+  // Record in backend silently (fire-and-forget)
+  apiPost('/payment/verify', { reference: reference, email: email, sessionId: sessionId || null })
+    .then(function(data) {
+      if (data && data.success) {
+        console.log('Payment recorded:', reference);
+      } else {
+        console.warn('Backend record note:', data && data.error);
+      }
+    }).catch(function(e) {
+      // Backend unavailable but payment already confirmed by Paystack — access still granted
+      console.warn('Backend record pending:', e.message || e);
+    });
 }
 
-
-
-
-// ── EMAIL GATE MODAL ──
-var _emailModalCallback = null;
-
-function openEmailModal(callback) {
-  _emailModalCallback = callback;
-  var modal = document.getElementById('emailGateModal');
-  var input = document.getElementById('emailGateInput');
-  var err   = document.getElementById('emailGateErr');
-  var btn   = document.getElementById('emailGateBtn');
-  if (!modal) return;
-  if (err)   err.style.display = 'none';
-  if (input) { input.value = userEmail || ''; }
-  if (btn)   btn.disabled = !input || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  setTimeout(function() { if (input) input.focus(); }, 120);
+function openPaywall(totalCount) {
+  var el = document.getElementById('paywallModal'); if (!el) return;
+  var lc = document.getElementById('paywallLockedCount'); if (lc) lc.textContent = Math.max(0, totalCount - FREE_LIMIT);
+  var tc = document.getElementById('paywallTotalCount'); if (tc) tc.textContent = totalCount;
+  el.classList.add('open'); document.body.style.overflow = 'hidden';
 }
-
-function closeEmailModal() {
-  var modal = document.getElementById('emailGateModal');
-  if (modal) { modal.style.display = 'none'; }
-  document.body.style.overflow = '';
-  _emailModalCallback = null;
-}
-
-function submitEmailGate() {
-  var input = document.getElementById('emailGateInput');
-  var err   = document.getElementById('emailGateErr');
-  var val   = input ? input.value.trim().toLowerCase() : '';
-  if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-    if (err) err.style.display = 'block';
-    if (input) input.focus();
-    return;
-  }
-  var cb = _emailModalCallback;
-  closeEmailModal();
-  if (cb) cb(val);
-}
-
-// ── ACCESS VERIFICATION BANNER ──
-function showAccessCheckingBanner() {
-  var existing = document.getElementById('accessCheckBanner');
-  if (existing) return;
-  var div = document.createElement('div');
-  div.id = 'accessCheckBanner';
-  div.className = 'access-checking-banner';
-  div.innerHTML = '<div class="spinner"></div> Verifying your access...';
-  document.body.appendChild(div);
-}
-
-function hideAccessCheckingBanner() {
-  var div = document.getElementById('accessCheckBanner');
-  if (div) { div.style.opacity = '0'; div.style.transition = 'opacity .3s'; setTimeout(function() { if (div.parentNode) div.remove(); }, 320); }
-}
-
-// ── SHOW VERIFIED BADGE IN NAV ──
-function showAccessBadge() {
-  var greeting = document.getElementById('navGreeting');
-  if (!greeting || document.getElementById('accessNavBadge')) return;
-  var badge = document.createElement('span');
-  badge.id = 'accessNavBadge';
-  badge.className = 'access-badge';
-  badge.innerHTML = '&#10003; Access Verified';
-  greeting.appendChild(badge);
-}
-
+function closePaywall() { var el = document.getElementById('paywallModal'); if (el) el.classList.remove('open'); document.body.style.overflow = ''; }
 
 // VOUCHER CODE SYSTEM
 var VALID_VOUCHERS = {'JOSH1959':true,'EDU1959':true};
+var usedVouchers = JSON.parse(localStorage.getItem('edupath_used_vouchers') || '[]');
 
 function applyVoucher() {
   var input = document.getElementById('voucherInput');
   if (!input) return;
   var vcode = input.value.trim().toUpperCase();
-  if (!vcode) { if(typeof toast==='function') toast('Enter a voucher code first.','warn'); return; }
+  if (!vcode) { if (typeof toast === 'function') toast('Enter a voucher code first.', 'warn'); return; }
   if (!VALID_VOUCHERS[vcode]) {
     input.classList.add('voucher-error');
-    if(typeof toast==='function') toast('Invalid voucher code. Check and try again.','err');
-    setTimeout(function(){ input.classList.remove('voucher-error'); },1500);
+    if (typeof toast === 'function') toast('Invalid voucher code. Check and try again.', 'err');
+    setTimeout(function() { input.classList.remove('voucher-error'); }, 1500);
     return;
   }
   hasPaidAccess = true;
-  _accessVerifiedThisSession = true;
-  localStorage.setItem('edupath_paid_hint','1');
-  localStorage.setItem('edupath_email', userEmail || 'voucher@edupath.ai');
+  localStorage.setItem('edupath_paid', 'true');
+  localStorage.setItem('edupath_voucher', vcode);
   input.classList.add('voucher-success');
   var vBtn = document.getElementById('voucherApplyBtn');
-  if(vBtn){ vBtn.textContent='Applied!'; vBtn.style.background='linear-gradient(135deg,#10b981,#34d399)'; vBtn.style.color='#fff'; }
-  setTimeout(function(){
+  if (vBtn) { vBtn.textContent = 'Applied!'; vBtn.style.background = 'linear-gradient(135deg,#10b981,#34d399)'; vBtn.style.color = '#fff'; }
+  setTimeout(function() {
     closePaywall();
-    showAccessBadge();
-    if(typeof toast==='function') toast('Voucher '+vcode+' applied! Full access unlocked.','ok');
-    _doUnlock();
+    if (typeof toast === 'function') toast('Voucher ' + vcode + ' applied! Full access unlocked.', 'ok');
+    document.querySelectorAll('.paywall-blur').forEach(function(c) { c.classList.remove('paywall-blur'); });
+    document.querySelectorAll('.unlock-cta').forEach(function(c) { c.remove(); });
+    renderCards(filteredResults);
   }, 700);
 }
 
 function toggleVoucherForm() {
   var form = document.getElementById('voucherForm');
-  if(!form) return;
+  if (!form) return;
   var open = form.style.display !== 'none';
   form.style.display = open ? 'none' : 'block';
-  if(!open){ setTimeout(function(){ var i=document.getElementById('voucherInput'); if(i) i.focus(); },80); }
+  if (!open) { setTimeout(function() { var i = document.getElementById('voucherInput'); if(i) i.focus(); }, 80); }
 }
-
-// ══ OTP AUTH SYSTEM ══════════════════════════════════════════
-var _sessionToken = localStorage.getItem('edupath_token') || null;
-
-function checkSession(token) {
-  if (!token) return Promise.resolve(false);
-  if (IS_FILE_PROTOCOL) return Promise.resolve(false);
-  showAccessCheckingBanner();
-  return fetch(API_BASE + '/auth/check-session', {
-    headers: { 'Authorization': 'Bearer ' + token }
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(d) {
-    hideAccessCheckingBanner();
-    if (d && d.valid && d.hasPaid) {
-      hasPaidAccess = true;
-      _accessVerifiedThisSession = true;
-      userEmail = d.email;
-      localStorage.setItem('edupath_email', d.email);
-      showAccessBadge();
-      return true;
-    }
-    localStorage.removeItem('edupath_token');
-    _sessionToken = null;
-    return false;
-  })
-  .catch(function() { hideAccessCheckingBanner(); return false; });
-}
-
-function requestOTP(email) {
-  if (IS_FILE_PROTOCOL) {
-    return Promise.reject(new Error('Backend unavailable: open via http:// server, not file://'));
-  }
-  return apiPost('/auth/request-otp', { email: email });
-}
-function verifyOTPCode(email, otp) {
-  return apiPost('/auth/verify-otp', { email: email, otp: otp });
-}
-
-var _otpEmail = null, _otpCallback = null;
-
-function openOTPModal(email, onSuccess) {
-  _otpEmail = email; _otpCallback = onSuccess;
-  var modal = document.getElementById('otpModal');
-  if (!modal) { _buildOTPModal(); modal = document.getElementById('otpModal'); }
-  var disp = document.getElementById('otpEmailDisplay');
-  if (disp) disp.textContent = email;
-  var inp = document.getElementById('otpInput'); if (inp) inp.value = '';
-  var err = document.getElementById('otpError'); if (err) err.style.display = 'none';
-  var btn = document.getElementById('otpVerifyBtn');
-  if (btn) { btn.disabled = false; btn.textContent = 'Verify Code'; btn.style.background = ''; }
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  setTimeout(function() { var i = document.getElementById('otpInput'); if (i) i.focus(); }, 120);
-}
-
-function closeOTPModal() {
-  var m = document.getElementById('otpModal');
-  if (m) m.style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-function resendOTP() {
-  if (!_otpEmail) return;
-  var btn = document.getElementById('otpResendBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
-  requestOTP(_otpEmail).then(function(d) {
-    if (btn) { btn.textContent = 'Resend Code'; btn.disabled = false; }
-    if (typeof toast === 'function')
-      toast(d && d.status === 'otp_sent' ? 'New code sent to ' + _otpEmail : (d && d.error) || 'Could not resend.', d && d.status === 'otp_sent' ? 'ok' : 'err');
-  }).catch(function() {
-    if (btn) { btn.disabled = false; btn.textContent = 'Resend Code'; }
-    if (typeof toast === 'function') toast('Network error.', 'err');
-  });
-}
-
-function submitOTP() {
-  var inp = document.getElementById('otpInput');
-  var otp = inp ? inp.value.trim() : '';
-  var err = document.getElementById('otpError');
-  var btn = document.getElementById('otpVerifyBtn');
-  if (!otp || otp.length !== 6 || !/^\d{6}$/.test(otp)) {
-    if (err) { err.textContent = 'Enter the 6-digit code from your email.'; err.style.display = 'block'; }
-    return;
-  }
-  if (btn) { btn.disabled = true; btn.textContent = 'Verifying...'; }
-  if (err) err.style.display = 'none';
-  verifyOTPCode(_otpEmail, otp).then(function(d) {
-    if (d && d.status === 'verified' && d.token) {
-      _sessionToken = d.token;
-      localStorage.setItem('edupath_token', d.token);
-      localStorage.setItem('edupath_email', _otpEmail);
-      hasPaidAccess = true;
-      _accessVerifiedThisSession = true;
-      closeOTPModal();
-      showAccessBadge();
-      if (typeof toast === 'function') toast('Access granted! Welcome to EduPath AI.', 'ok');
-      if (_otpCallback) _otpCallback();
-    } else {
-      var msg = (d && d.error) ? d.error : 'Verification failed.';
-      if (err) { err.textContent = msg; err.style.display = 'block'; }
-      if (btn) { btn.disabled = false; btn.textContent = 'Verify Code'; }
-    }
-  }).catch(function() {
-    if (err) { err.textContent = 'Network error. Please try again.'; err.style.display = 'block'; }
-    if (btn) { btn.disabled = false; btn.textContent = 'Verify Code'; }
-  });
-}
-
-function _buildOTPModal() {
-  var div = document.createElement('div');
-  div.id = 'otpModal';
-  div.style.cssText = 'position:fixed;inset:0;z-index:860;background:rgba(0,0,0,.78);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px';
-  div.innerHTML =
-    '<div style="background:var(--surface);border:1.5px solid var(--border2);border-radius:20px;max-width:380px;width:100%;padding:28px 24px;box-shadow:0 40px 100px rgba(0,0,0,.85),0 0 0 1px rgba(124,58,237,.2);position:relative;animation:paywallEntry .4s cubic-bezier(.34,1.2,.64,1) both">' +
-    '<button onclick="closeOTPModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;width:28px;height:28px;border-radius:6px;display:grid;place-items:center">&#10005;</button>' +
-    '<div style="text-align:center;margin-bottom:18px">' +
-      '<div style="font-size:2rem;margin-bottom:7px">&#128233;</div>' +
-      '<div style="font-family:Fraunces,serif;font-size:1.1rem;font-weight:900;color:var(--text);margin-bottom:5px">Check Your Email</div>' +
-      '<div style="font-size:.77rem;color:var(--text2);line-height:1.6">We sent a 6-digit code to<br/><strong id="otpEmailDisplay" style="color:var(--PL,#a855f7)"></strong></div>' +
-    '</div>' +
-    '<input id="otpInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="000000"' +
-    ' onkeydown="if(event.key===String.fromCharCode(13))submitOTP()"' +
-    ' style="width:100%;box-sizing:border-box;padding:14px;border-radius:10px;background:var(--surface2);border:1.5px solid var(--border2);color:var(--text);font-family:monospace;font-size:1.6rem;letter-spacing:.28em;text-align:center;margin-bottom:8px;outline:none"/>' +
-    '<div id="otpError" style="font-size:.73rem;color:var(--err,#f87171);margin-bottom:8px;display:none;text-align:center"></div>' +
-    '<button id="otpVerifyBtn" onclick="submitOTP()" style="width:100%;padding:12px;border-radius:10px;background:linear-gradient(135deg,#5b21b6,#7c3aed 50%,#f97316);color:#fff;border:none;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;box-shadow:0 6px 20px rgba(124,58,237,.4);margin-bottom:10px">Verify Code</button>' +
-    '<div style="text-align:center;font-size:.74rem;color:var(--muted)">' +
-      '<button id="otpResendBtn" onclick="resendOTP()" style="background:none;border:none;color:var(--accent2,#5b9bff);font-size:.74rem;cursor:pointer;text-decoration:underline;font-family:inherit">Resend Code</button>' +
-      ' &nbsp;&#183;&nbsp; Valid for 5 minutes' +
-    '</div>' +
-    '</div>';
-  document.body.appendChild(div);
-}
-
-// ── Updated payNow with OTP routing ──────────────────────────
-function payNow() {
-  if (!userEmail) {
-    openEmailModal(function(email) {
-      userEmail = email;
-      localStorage.setItem('edupath_email', email);
-      _routeEmailForAccess(email);
-    });
-    return;
-  }
-  _routeEmailForAccess(userEmail);
-}
-
-function _routeEmailForAccess(email) {
-  // 1. Check session token first
-  var tok = localStorage.getItem('edupath_token');
-  if (tok) {
-    checkSession(tok).then(function(ok) {
-      if (ok) { closePaywall(); _doUnlock(); if (typeof toast==='function') toast('Welcome back! Access restored.','ok'); }
-      else _askBackendForRoute(email);
-    });
-    return;
-  }
-  _askBackendForRoute(email);
-}
-
-function _askBackendForRoute(email) {
-  // 2. Ask backend: paid already?
-  requestOTP(email).then(function(d) {
-    if (!d) { if (typeof toast==='function') toast('Network error. Try again.','err'); return; }
-    if (d.status === 'payment_required') {
-      // Not paid — launch Paystack
-      _launchPaystack(email);
-    } else if (d.status === 'otp_sent') {
-      // Already paid — show OTP input
-      closePaywall();
-      openOTPModal(email, function() { closePaywall(); _doUnlock(); });
-    } else {
-      if (typeof toast==='function') toast((d.error||'Something went wrong.'),'err');
-    }
-  }).catch(function() {
-    // API down — fall back to direct payment check
-    checkPaymentAccess().then(function(paid) {
-      if (paid) { closePaywall(); _doUnlock(); }
-      else _launchPaystack(email);
-    });
-  });
-}
-
-// ── Updated verifyPayment: after payment → send OTP ──────────
-function verifyPayment(reference, email) {
-  var payBtn  = document.getElementById('paywallPayBtn');
-  var retries = 0, maxRetries = 3;
-
-  if (payBtn) {
-    payBtn.disabled = true;
-    payBtn.innerHTML = '<span style="animation:spin .7s linear infinite;display:inline-block">&#8635;</span> Verifying payment...';
-  }
-  if (typeof toast === 'function') toast('Verifying your payment with Paystack...', 'info');
-
-  function attempt() {
-    apiPost('/payment/verify', { reference: reference, email: email, sessionId: sessionId || null })
-      .then(function(data) {
-        if (data && data.success) {
-          // ✅ Backend confirmed — grant access NOW
-          hasPaidAccess = true;
-          _accessVerifiedThisSession = true;
-          localStorage.setItem('edupath_paid_hint', '1');
-          localStorage.setItem('edupath_email', email);
-          userEmail = email;
-
-          if (payBtn) {
-            payBtn.disabled = false;
-            payBtn.innerHTML = '&#10003; Payment Confirmed!';
-            payBtn.style.background = 'linear-gradient(135deg,#10b981,#34d399)';
-          }
-          closePaywall();
-          showAccessBadge();
-          if (typeof toast === 'function') toast('Payment confirmed! Unlocking all ' + (allResults.length||'') + ' courses...', 'ok');
-          _doUnlock();
-
-          // Also try OTP for future logins (non-blocking — if it fails, access already granted)
-          requestOTP(email).then(function(d) {
-            if (d && d.status === 'otp_sent') {
-              setTimeout(function() {
-                if (typeof toast === 'function') toast('Check your email for a login code for future visits.', 'info');
-              }, 2000);
-            }
-          }).catch(function() {
-            // OTP is optional — access already granted above
-          });
-
-        } else {
-          var msg = (data && data.error) ? data.error : 'Payment could not be verified.';
-          if (typeof toast === 'function') toast(msg, 'err');
-          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Try Again'; payBtn.style.background = ''; }
-        }
-      })
-      .catch(function(err) {
-        retries++;
-        if (retries < maxRetries) {
-          setTimeout(attempt, Math.pow(2, retries - 1) * 1000);
-          if (typeof toast === 'function') toast('Retrying... (' + retries + '/' + maxRetries + ')', 'info');
-        } else {
-          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Contact Support'; }
-          if (typeof toast === 'function') toast(
-            'Could not verify after ' + maxRetries + ' attempts. ' +
-            'WhatsApp 0742 868 209 with reference: ' + reference, 'err'
-          );
-        }
-      });
-  }
-  attempt();
-}
-
-
-
-// ══ PAYWALL OPEN / CLOSE (restored) ══════════════════════════
-function openPaywall(totalCount) {
-  var el  = document.getElementById('paywallModal');
-  if (!el) return;
-  var lc  = document.getElementById('paywallLockedCount');
-  var tc  = document.getElementById('paywallTotalCount');
-  if (lc) lc.textContent = Math.max(0, (totalCount||0) - FREE_LIMIT);
-  if (tc) tc.textContent = totalCount || 0;
-  el.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  // Hide the persistent FAB while paywall is open
-  var fab = document.getElementById('unlockFab');
-  if (fab) fab.style.display = 'none';
-}
-
-function closePaywall() {
-  var el = document.getElementById('paywallModal');
-  if (el) el.classList.remove('open');
-  document.body.style.overflow = '';
-  // Show persistent FAB if courses are still locked
-  if (!hasPaidAccess && allResults.length > FREE_LIMIT) {
-    var fab = document.getElementById('unlockFab');
-    if (fab) fab.style.display = 'flex';
-  }
-}
-
-// ══ NAVIGATION STATE MACHINE (restored) ══════════════════════
-var currentStep  = 1;
-var isNavigating = false;
-
-function showGradeAlert(msg) {
-  var old = document.getElementById('gradeAlertBox');
-  if (old) old.remove();
-  var div = document.createElement('div');
-  div.id = 'gradeAlertBox';
-  div.className = 'grade-alert';
-  div.textContent = '⚠️ ' + msg;
-  document.body.appendChild(div);
-  setTimeout(function() { if (div.parentNode) div.remove(); }, 3500);
-}
-
-function updateBreadcrumb(step) {
-  var bc = document.getElementById('mainBreadcrumb');
-  if (!bc) return;
-  var labels = ['', 'Enter Grades', 'Cluster Points', 'My Courses'];
-  var parts  = '<span class="bc-link" onclick="if(currentStep>1)navigateToStep(1)">⌂ Home</span>';
-  for (var i = 1; i <= step; i++) {
-    parts += '<span class="bc-sep">›</span>';
-    if (i < step) parts += '<span class="bc-link" onclick="navigateToStep(' + i + ')">' + labels[i] + '</span>';
-    else          parts += '<span>' + labels[i] + '</span>';
-  }
-  bc.innerHTML = parts;
-}
-
-function navigateToStep(n) {
-  if (isNavigating || n === currentStep) return;
-  if (n === 2) {
-    // Validate required grades
-    var req  = ['eng', 'kis', 'maths'];
-    var names = { eng: 'English', kis: 'Kiswahili', maths: 'Mathematics' };
-    var miss = req.filter(function(r) { return !grades[r]; });
-    if (miss.length) {
-      showGradeAlert('Please enter grades for: ' + miss.map(function(r) { return names[r]; }).join(', '));
-      return;
-    }
-  }
-  if (n === 3 && currentStep < 2) { navigateToStep(2); return; }
-
-  isNavigating = true;
-  currentStep  = n;
-
-  // Update step bar progress
-  var bar = document.querySelector('.step-bar');
-  if (bar) bar.setAttribute('data-step', String(n));
-  setTabs(n);
-
-  // Which panels to show
-  var showIds = n === 1 ? ['step1'] : n === 2 ? ['step2'] : ['step3L'];
-
-  // Animate out visible panels
-  ['step1', 'step2', 'step3L', 'step3R'].forEach(function(id) {
-    if (showIds.indexOf(id) >= 0) return;
-    var el = document.getElementById(id);
-    if (!el || el.style.display === 'none') return;
-    el.style.opacity    = '0';
-    el.style.transform  = 'translateY(-10px)';
-    el.style.transition = 'opacity .22s ease, transform .22s ease';
-    setTimeout(function() {
-      el.style.display    = 'none';
-      el.style.opacity    = '';
-      el.style.transform  = '';
-      el.style.transition = '';
-    }, 230);
-  });
-
-  // Animate in new panel
-  setTimeout(function() {
-    showIds.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      el.style.display    = '';
-      el.style.opacity    = '0';
-      el.style.transform  = 'translateY(16px)';
-      el.style.transition = 'opacity .35s ease, transform .35s cubic-bezier(.34,1.1,.64,1)';
-      setTimeout(function() {
-        el.style.opacity    = '1';
-        el.style.transform  = 'translateY(0)';
-        setTimeout(function() { el.style.transition = ''; }, 380);
-      }, 20);
-    });
-    isNavigating = false;
-    updateBreadcrumb(n);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Recompute clusters when navigating to step 2
-    if (n === 2) {
-      CLUSTERS.forEach(function(cl) { clusterScores[cl.id] = calcCluster(cl.subjects); });
-      var sorted  = CLUSTERS.slice().sort(function(a,b) { return (clusterScores[b.id]||0)-(clusterScores[a.id]||0); });
-      var top2ids = [sorted[0].id, sorted[1].id];
-      var cg = document.getElementById('cluGrid');
-      if (cg) {
-        cg.innerHTML = '';
-        CLUSTERS.forEach(function(cl, idx) {
-          var sc  = clusterScores[cl.id] || 0;
-          var isT = cl.id === top2ids[0];
-          var is2 = cl.id === top2ids[1];
-          var pct = (sc / 48 * 100).toFixed(0);
-          var nm  = cl.label.indexOf('–') !== -1 ? cl.label.split('–')[1].trim() : cl.label;
-          var div = document.createElement('div');
-          div.className = 'clu-card' + (isT ? ' top' : is2 ? ' second' : '');
-          div.style.animationDelay = (idx * 0.04) + 's';
-          div.innerHTML =
-            '<div class="clu-name">' + nm +
-            (isT ? '<span class="rank-tag rank-1">&#x1F947; Best</span>' :
-             is2 ? '<span class="rank-tag rank-2">&#x1F948; 2nd</span>' : '') + '</div>' +
-            '<div class="clu-score">' + (sc > 0 ? sc.toFixed(1) : '&ndash;') + '</div>' +
-            '<div class="clu-subs">' + cl.desc + '</div>' +
-            '<div class="score-bar"><div class="score-fill" style="width:0%" data-pct="' + pct + '"></div></div>';
-          cg.appendChild(div);
-        });
-        setTimeout(function() {
-          document.querySelectorAll('.score-fill').forEach(function(el) { el.style.width = el.dataset.pct + '%'; });
-        }, 120);
-      }
-    }
-  }, 240);
-}
-
-// Patch goStep1/goStep2 to use state machine
-function goStep1() { navigateToStep(1); }
-function goStep2() { navigateToStep(2); }
 
 
 function toggleTheme() {
@@ -5588,37 +4761,5 @@ document.addEventListener('mouseleave', function() {
   });
 })();
 </script>
-
-<!-- EMAIL COLLECTION MODAL -->
-<div id="emailGateModal" style="display:none;position:fixed;inset:0;z-index:850;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px">
-  <div style="background:var(--surface);border:1.5px solid var(--border2);border-radius:20px;max-width:380px;width:100%;padding:28px 24px;box-shadow:0 40px 100px rgba(0,0,0,.8),0 0 0 1px rgba(124,58,237,.2);animation:paywallEntry .4s cubic-bezier(.34,1.2,.64,1) both">
-    <div style="text-align:center;margin-bottom:18px">
-      <div style="font-size:2rem;margin-bottom:8px">&#128231;</div>
-      <div style="font-family:'Fraunces',serif;font-size:1.15rem;font-weight:900;color:var(--text);margin-bottom:5px">Enter Your Email</div>
-      <div style="font-size:.78rem;color:var(--text2);line-height:1.6">Your email is used to <strong>tie payment to your account</strong>. You can restore access from any device with this email.</div>
-    </div>
-    <input id="emailGateInput" type="email" placeholder="yourname@email.com"
-      style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;background:var(--surface2);border:1.5px solid var(--border2);color:var(--text);font-family:inherit;font-size:.88rem;margin-bottom:8px;outline:none;transition:border-color .18s"
-      onkeydown="if(event.key==='Enter') submitEmailGate()"
-      oninput="var v=this.value; var btn=document.getElementById('emailGateBtn'); if(btn) btn.disabled=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);"/>
-    <div id="emailGateErr" style="font-size:.72rem;color:var(--err);margin-bottom:10px;display:none">Please enter a valid email address.</div>
-    <button id="emailGateBtn" onclick="submitEmailGate()" disabled
-      style="width:100%;padding:12px;border-radius:10px;background:linear-gradient(135deg,#5b21b6,#7c3aed 50%,#f97316);color:#fff;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .22s;font-family:inherit;box-shadow:0 6px 20px rgba(124,58,237,.4)">
-      Continue to Payment &#8594;
-    </button>
-    <div style="margin-top:10px;font-size:.68rem;color:var(--muted);text-align:center">
-      &#128274; We only use your email to verify payment. No spam, ever.
-    </div>
-    <button onclick="closeEmailModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;width:28px;height:28px;border-radius:6px;display:grid;place-items:center;transition:all .15s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='none'">&#10005;</button>
-  </div>
-</div>
-
-
-<!-- Persistent unlock FAB — reopens paywall after X is pressed -->
-<button id="unlockFab" onclick="openPaywall(allResults.length)" title="Unlock all courses">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 11V7a7 7 0 0 1 14 0v4"/><rect x="3" y="11" width="18" height="11" rx="2"/></svg>
-  Unlock All Courses · KES 50
-</button>
-
 </body>
 </html>
